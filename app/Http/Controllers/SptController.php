@@ -69,18 +69,6 @@ class SptController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function checkInput(Request $request) {
-        //code untuk memeriksa apakah input sudah ada sebelumnya atau tidak
-        // $lastInput = $request->session()->get('hari_tgl');
-        // $newInput = $request->input('hari_tgl');
-      }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Spt  $spt
