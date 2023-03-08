@@ -127,14 +127,14 @@ class SptController extends Controller
             ->with('toast_success', 'Data SPT Berhasil Dihapus');
     }
 
-    /**
-     * Determine if the given option is the currently selected option.
-     *
-     * @param  string  $option
-     * @return bool
-     */
-    public function isSelected($option)
-    {
-        $option === $this->selected;
-    }
+    // /**
+    //  * Determine if the given option is the currently selected option.
+    //  *
+    //  * @param  string  $option
+    //  * @return bool
+    //  */
+    // public function isSelected($option)
+    // {
+    //     $option === $this->selected;
+    // }
 }

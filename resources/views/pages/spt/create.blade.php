@@ -40,10 +40,8 @@
                                     <label>Pejabat Memerintah</label>
                                         <select class="js-example-basic-multiple w-100" name="memerintah[]"
                                             id="memerintah">
-                                            <option value="">Pilih Salah Satu</option>
-                                            @foreach ($spt as $s)
-                                                <option value="{{ $s->id }}">{{ $s->name }}</option>
-                                            @endforeach
+                                            <label for="hari">Tanggal Mulai Diperintah</label>
+                                            <input type="date" class="form-control" id="hari_tgl" name="hari_tgl" placeholder="Pilih Tanggal Kepergian">
                                         </select>
                                     </div>
                                 </div>
