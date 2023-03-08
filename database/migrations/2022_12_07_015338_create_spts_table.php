@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('nomor_surat')->require();
             $table->string('dasar_perintah')->required();
             $table->string('maksud_tugas')->required();
-            $table->date('hari_tgl', 100)->required();
+            $table->date('tgl_pergi', 100)->required();
+            $table->date('tgl_kembali', 100)->required();
             $table->string('waktu')->required();
             $table->string('tempat')->required();
             $table->string('tempat_ditetapkan')->required();

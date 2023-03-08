@@ -38,14 +38,18 @@
                                         <input value="{{ $spt->nomor_surat }}" type="text" class="form-control" id="nomor_surat" name="nomor_surat" placeholder="Tulis Nomor Surat"></input>
                                     </div>
                                 </div>
+                                    <div class="form-group">
+                                        <label for="tgl_pergi">Tanggal Kepergian</label>
+                                        <input value="{{ $spt->tgl_pergi }}" type="date" class="form-control" id="tgl_pergi" name="tgl_pergi" placeholder="Pilih Tanggal Kepergian">
+                                    </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="dasar_perintah">Dasar Perintah</label>
                                         <input value="{{ $spt->dasar_perintah }}" type="text" class="form-control" id="dasar_perintah" name="dasar_perintah" placeholder="Tulis Dasar Perintah"></input>
                                     </div>
                                     <div class="form-group">
-                                        <label for="hari_tgl">Hari/Tanggal</label>
-                                        <input value="{{ $spt->hari_tgl }}" type="date" class="form-control" id="hari_tgl" name="hari_tgl" placeholder="Pilih Tanggal Kepergian">
+                                        <label for="tgl_kembali">Tanggal Kembali</label>
+                                        <input value="{{ $spt->tgl_kembali }}" type="date" class="form-control" id="tgl_kembali" name="tgl_kembali" placeholder="Pilih Tanggal Kembali">
                                     </div>
                                 </div>
                                 <div class="col">

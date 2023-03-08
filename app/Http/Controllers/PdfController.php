@@ -300,16 +300,18 @@ class PDF_MC_Table extends FPDF
         $this->Cell(35, 5, '', 0, 0);
     }
 
-    function DayDate($hari, $tanggal)
+    function Day_SPT($hari1, $hari2)
     {
         $this->Cell(50, 5, 'Hari', 0, 0);
         $this->Cell(5, 5, ':', 0, 0);
-        $this->Cell(0, 5, $hari, 0, 1);
+        $this->Cell(0, 5, $hari1." - ".$hari2, 0, 1);
         $this->Cell(35, 5, '', 0, 0);
-
+    }
+    function Date_SPT($tanggal1, $tanggal2)
+    {
         $this->Cell(50, 5, 'Tanggal', 0, 0);
         $this->Cell(5, 5, ':', 0, 0);
-        $this->Cell(0, 5, $tanggal, 0, 1);
+        $this->Cell(0, 5, $tanggal1." - ".$tanggal2, 0, 1);
         $this->Cell(35, 5, '', 0, 0);
     }
     function Waktu_Tempat($waktu, $tempat)
@@ -813,7 +815,9 @@ class PdfController extends Controller
         // Untuk
         $this->fpdf->Untuk($dataSpt->maksud_tugas." pada:");
 
-        $this->fpdf->DayDate(converDaytoIndo($dataSpt->hari_tgl), DateIndo($dataSpt->hari_tgl));
+        $this->fpdf->Day_SPT(converDaytoIndo($dataSpt->tgl_pergi), converDaytoIndo($dataSpt->tgl_kembali));
+
+        $this->fpdf->Date_SPT(DateIndo($dataSpt->tgl_pergi), DateIndo($dataSpt->tgl_kembali));
 
         $this->fpdf->Waktu_Tempat($dataSpt->waktu, $dataSpt->tempat);
 

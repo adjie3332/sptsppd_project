@@ -37,12 +37,8 @@
                                         <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" placeholder="Tulis Nomor Surat"></input>
                                     </div>
                                     <div class="form-group">
-                                    <label>Pejabat Memerintah</label>
-                                        <select class="js-example-basic-multiple w-100" name="memerintah[]"
-                                            id="memerintah">
-                                            <label for="hari">Tanggal Mulai Diperintah</label>
-                                            <input type="date" class="form-control" id="hari_tgl" name="hari_tgl" placeholder="Pilih Tanggal Kepergian">
-                                        </select>
+                                        <label for="tgl_pergi">Tanggal Kepergian</label>
+                                        <input type="date" class="form-control" id="tgl_pergi" name="tgl_pergi" placeholder="Pilih Tanggal Kepergian">
                                     </div>
                                 </div>
                                 <div class="col">
@@ -51,8 +47,8 @@
                                         <input type="text" class="form-control" id="dasar_perintah" name="dasar_perintah" placeholder="Tulis Dasar Perintah"></input>
                                     </div>
                                     <div class="form-group">
-                                        <label for="hari_tgl">Hari/Tanggal</label>
-                                        <input type="date" class="form-control" id="hari_tgl" name="hari_tgl" placeholder="Pilih Tanggal Kepergian">
+                                        <label for="tgl_kembali">Tanggal Kembali</label>
+                                        <input type="date" class="form-control" id="tgl_kembali" name="tgl_kembali" placeholder="Pilih Tanggal Kembali">
                                     </div>
                                 </div>
                                 <div class="col">

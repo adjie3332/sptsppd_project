@@ -10,7 +10,7 @@ use Carbon\Carbon;
 class Spt extends Model
 {
     use HasFactory;
-    protected $fillable = ['id','nomor_surat', 'dasar_perintah', 'maksud_tugas', 'hari_tgl', 'waktu', 'tempat', 'tempat_ditetapkan', 'tgl_ditetapkan', 'yang_menetapkan'];
+    protected $fillable = ['id','nomor_surat', 'dasar_perintah', 'maksud_tugas', 'tgl_pergi', 'tgl_kembali', 'waktu', 'tempat', 'tempat_ditetapkan', 'tgl_ditetapkan', 'yang_menetapkan'];
     // protected $dates = ['hari_tgl', 'tgl_ditetapkan'];
     public function diperintah()
     {

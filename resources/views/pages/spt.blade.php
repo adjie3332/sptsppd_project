@@ -27,7 +27,8 @@
                             <th>Dasar Perintah</th>
                             <th>Pegawai yang Diperintah</th>
                             <th>Maksud Tugas</th>
-                            <th>Hari, Tanggal</th>
+                            <th>Tanggal Pergi</th>
+                            <th>Tanggal Kembali</th>
                             <th>Waktu</th>
                             <th>Tempat</th>
                             <th>Tempat Ditetapkan</th>
@@ -51,7 +52,8 @@
                                     @endforeach
                                 </td>
                                 <td>{{ $s->maksud_tugas }}</td>
-                                <td>{{ $s->hari_tgl }}</td>
+                                <td>{{ $s->tgl_pergi }}</td>
+                                <td>{{ $s->tgl_kembali }}</td>
                                 <td>{{ $s->waktu }}</td>
                                 <td>{{ $s->tempat }}</td>
                                 <td>{{ $s->tempat_ditetapkan }}</td>

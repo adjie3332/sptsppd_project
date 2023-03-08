@@ -83,20 +83,20 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="kepala_bidang">Sekretaris</label>
-                                <input type="text" class="form-control" name="kepala_bidang" id="kepala_bidang" value="Drs. Sabarudin, SH. MM." disabled>
+                                <label for="sekretaris">Sekretaris</label>
+                                <input type="text" class="form-control" name="sekretaris" id="sekretaris" value="Drs. Sabarudin, SH. MM." disabled>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="pejabat_pelaksana">Kabid Konsumsi dan Keamanan Pangan</label>
-                                <input type="text" class="form-control" name="pejabat_pelaksana" id="pejabat_pelaksana" value="Ir. Wiwit Soco Widawati" disabled>
+                                <label for="kabid_KKP">Kabid Konsumsi dan Keamanan Pangan</label>
+                                <input type="text" class="form-control" name="kabid_KKP" id="kabid_KKP" value="Ir. Wiwit Soco Widawati" disabled>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="bendahara">Kabid Ketersediaan, Distribusi & Cadangan Pangan</label>
-                                <input type="text" class="form-control" name="bendahara" id="bendahara" value="Drh. Dhian Mujiwiyati" disabled>
+                                <label for="kabid_KDCP">Kabid Ketersediaan, Distribusi & Cadangan Pangan</label>
+                                <input type="text" class="form-control" name="kabid_KDCP" id="kabid_KDCP" value="Drh. Dhian Mujiwiyati" disabled>
                             </div>
                         </div>
                     </div>
