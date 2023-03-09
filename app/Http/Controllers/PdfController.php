@@ -309,11 +309,11 @@ class PDF_MC_Table extends FPDF
         $this->Cell(0, 6, $hari, 0, 1);
         $this->Cell(35, 5, '', 0, 0);
     }
-    function Date_SPT($tanggal1, $tanggal2)
+    function Date_SPT($tanggal)
     {
         $this->Cell(50, 5, 'Tanggal', 0, 0);
         $this->Cell(5, 5, ':', 0, 0);
-        $this->Cell(0, 6, $tanggal1." - ".$tanggal2, 0, 1);
+        $this->Cell(0, 6, $tanggal, 0, 1);
         $this->Cell(35, 5, '', 0, 0);
     }
     function Waktu_Tempat($waktu, $tempat)
@@ -738,55 +738,10 @@ class PdfController extends Controller
               $indo_day1 = array($hari_indo1);
               $hari_indo2 = $hari[$day2];
               $indo_day2 = array($hari_indo2);
-              $hasil = implode($indo_day1, $indo_day2);
-              return $hasil;
+              return implode($indo_day1)." - ". implode($indo_day2);
             }
           }
-        // function converDaytoIndo($string){
-        //     // contoh : 2019-01-30
-        //     $day = date('l', strtotime($string));
-        //     switch ($day) {
-        //         case 'Sunday':
-        //          $hari = 'Minggu';
-        //          break;
-        //         case 'Monday':
-        //          $hari = 'Senin';
-        //          break;
-        //         case 'Tuesday':
-        //          $hari = 'Selasa';
-        //          break;
-        //         case 'Wednesday':
-        //          $hari = 'Rabu';
-        //          break;
-        //         case 'Thursday':
-        //          $hari = 'Kamis';
-        //          break;
-        //         case 'Friday':
-        //          $hari = 'Jum\'at';
-        //          break;
-        //         case 'Saturday':
-        //          $hari = 'Sabtu';
-        //          break;
-        //         default:
-        //          $hari = 'Tidak ada';
-        //          break;
-        //        }
-        //     return $hari;
-        // }
 
-        // function cek_day($tanggal1, $tanggal2) {
-        //     $day1 = date('l', strtotime($tanggal1));
-        //     $day2 = date('l', strtotime($tanggal2));
-        //     $hari1 = convertDayToIndo($day1);
-        //     if ($tanggal1 == $tanggal2) {
-        //         return $hari1;
-        //     }
-        //     $hari2 = convertDayToIndo($day2);
-        //     if ($hari1 == $hari2) {
-        //         return $hari1;
-        //     }
-        //     return $hari1 . ' - ' . $hari2;
-        // }
         function DateIndo($string){
             $bulanIndo = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September' , 'Oktober', 'November', 'Desember'];
          
@@ -802,6 +757,21 @@ class PdfController extends Controller
             }
            
             return $tgl . " " . $bulanIndo[abs($bulan)] . " " . $tahun;
+        }
+        function cek_tanggal($tgl1, $tgl2) {
+            // Daftar nama bulan dalam bahasa Indonesia
+            $bulanIndo = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        
+            // Ubah tanggal menjadi format tanggal dengan format 'Y-m-d'
+            $str_tgl1 = date('Y-m-d', strtotime($tgl1));
+            $str_tgl2 = date('Y-m-d', strtotime($tgl2));
+        
+            // Jika tanggal 1 dan tanggal 2 sama, tampilkan satu saja
+            if ($str_tgl1 == $str_tgl2) {
+                return date('j', strtotime($tgl1)) . ' ' . $bulanIndo[date('n', strtotime($tgl1))] . ' ' . date('Y', strtotime($tgl1));
+            } else {
+                return date('j', strtotime($tgl1)) . ' ' . $bulanIndo[date('n', strtotime($tgl1))] . ' ' . date('Y', strtotime($tgl1)) . ' - ' . date('j', strtotime($tgl2)) . ' ' . $bulanIndo[date('n', strtotime($tgl2))] . ' ' . date('Y', strtotime($tgl2));
+            }
         }
         
         function membuatWaktu($waktu) {
@@ -851,7 +821,7 @@ class PdfController extends Controller
         $this->fpdf->Day_SPT(convertDaytoIndo($dataSpt->tgl_pergi, $dataSpt->tgl_kembali));
 
         // Tanggal
-        $this->fpdf->Date_SPT(DateIndo($dataSpt->tgl_pergi), DateIndo($dataSpt->tgl_kembali));
+        $this->fpdf->Date_SPT(cek_tanggal($dataSpt->tgl_pergi, $dataSpt->tgl_kembali));
 
         // Waktu dan Tempat
         $this->fpdf->Waktu_Tempat($dataSpt->waktu." WIB s/d selesai", $dataSpt->tempat);
