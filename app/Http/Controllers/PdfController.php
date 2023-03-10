@@ -221,6 +221,14 @@ class PDF_MC_Table extends FPDF
         $this->SetStyle('U',false);
         $this->SetTextColor(0);
     }
+    function displayEmptyInput($input)
+    {
+        if(empty($input)) {
+            return '-';
+        } else {
+            return $input;
+        }
+    }
 
     function Kop()
     {
@@ -255,7 +263,7 @@ class PDF_MC_Table extends FPDF
         $this->SetFont('Times', '', 12);
         $this->Cell(30, 5, 'Dasar', 0, 0);
         $this->Cell(5, 5, ':', 0, 0);
-        $this->MultiCell(0, 6, $dasar, 0);
+        $this->MultiCell(0, 6, displayEmptyInput($dasar), 0);
         $this->Ln(1);
     }
 
@@ -298,7 +306,7 @@ class PDF_MC_Table extends FPDF
     {
         $this->Cell(30, 5, 'Untuk', 0, 0);
         $this->Cell(5, 5, ':', 0, 0);
-        $this->MultiCell(0, 6, $untuk, 0);
+        $this->MultiCell(0, 6, displayEmptyInput($untuk) , 0);
         $this->Cell(35, 5, '', 0, 0);
     }
 
@@ -406,6 +414,15 @@ class PDF_MC_Table extends FPDF
            
             return $tgl . " " . $bulanIndo[abs($bulan)] . " " . $tahun;
         }
+        function displayEmptyInput($input)
+        {
+            if(empty($input)) {
+                return '-';
+            } else {
+                return $input;
+            }
+        }
+
         function menghitungLamaPerjalanan($berangkat, $pulang){
             $tglBerangkat = explode("-", $berangkat)[2];
             $tglPulang = explode("-", $pulang)[2];
@@ -430,7 +447,7 @@ class PDF_MC_Table extends FPDF
         $this->Row(Array('7.', 'a. Lamanya Perjalanan Dinas',menghitungLamaPerjalanan($singleData->tgl_pergi, $singleData->tgl_kembali)));
         $this->Row(Array('', 'b. Tanggal berangkat', ubahTanggalkeIndo($singleData->tgl_pergi)));
         $this->Row(Array('', 'c. Tanggal harus kembali', ubahTanggalkeIndo($singleData->tgl_kembali)));
-        $this->Row(Array('8.', 'Pengikut / NIP', $pengikut));
+        $this->Row(Array('8.', 'Pengikut / NIP', displayEmptyInput($pengikut)));
         $this->Row(Array('9.', 'Pembebanan Anggaran', ''));
         $this->Row(Array('', 'a. Instansi', $singleData->instansi));
         $this->Row(Array('', 'b. Mata Anggaran', $singleData->mata_anggaran));
