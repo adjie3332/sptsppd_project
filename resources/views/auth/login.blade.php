@@ -12,7 +12,7 @@
                             <div class="brand-logo">
                                 <img src="{{ 'images/Boyolali.png' }}" alt="logo">
                             </div>
-                            <h4>Selamat Datang di Aplikasi SPPD</h4>
+                            <h4>Selamat Datang di Aplikasi SPT-SPPD</h4>
                             <h6 class="fw-light">Masuk untuk lanjut.</h6>
                         </div>
                         <form action="{{ route('login.post') }}" method="POST" class="pt-3">
