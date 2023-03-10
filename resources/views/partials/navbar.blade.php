@@ -8,7 +8,7 @@
         <div>
             <a class="navbar-brand brand-logo" href="/">
                 <img src="{{ url('images/Boyolali.png') }}" alt="logo" />
-                SPPD
+                SPT-SPPD
             </a>
             <a class="navbar-brand brand-logo-mini" href="/">
                 <img src="{{ url('images/Boyolali.png') }}" alt="logo" />
