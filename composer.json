@@ -10,7 +10,7 @@
     "require": {
         "php": "^8.0.2",
         "awobaz/compoships": "^2.1",
-        "codedge/laravel-fpdf": "^1.10",
+        "codedge/laravel-fpdf": "^1.11",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",

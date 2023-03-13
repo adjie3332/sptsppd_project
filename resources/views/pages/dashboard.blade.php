@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-    <div class="row flex-grow">
+    <!-- <div class="row flex-grow">
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card bg-success card-rounded">
                 <div class="card-body pb-3">
@@ -72,7 +72,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card bg-warning card-rounded">
                 <div class="card-body pb-3">

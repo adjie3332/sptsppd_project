@@ -26,12 +26,13 @@
                 </div>
                 <!-- content-wrapper ends -->
                 <!-- partial:../../partials/_footer.html -->
-                @include('partials.footer')
+
                 <!-- partial -->
             </div>
             <!-- main-panel ends -->
         </div>
         <!-- page-body-wrapper ends -->
+        @include('partials.footer')
     </div>
     @stack('prepend-script')
     @include('includes.script')

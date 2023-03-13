@@ -75,7 +75,7 @@ class SppdController extends Controller
             'keterangan' => $request->keterangan,
         ]);
 
-        // $sppd->pengikut()->sync($request->pengikut);
+        $sppd->pengikut()->sync($request->pengikut);
 
         return redirect()->route('sppd.index')
             ->with('toast_success', 'Data SPPD Berhasil Ditambahkan');
