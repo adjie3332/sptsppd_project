@@ -28,6 +28,11 @@
                                 </ul>
                             </div>
                         @endif
+                        @if(session()->has('error'))
+                            <script>
+                                toastr.error('{{ session()->get('error') }}');
+                            </script>
+                        @endif
                         <form class="forms-sample" action="{{ route('spt.store') }}" method="POST">
                             @csrf
                             <div class="row">
@@ -146,7 +151,7 @@
         const lastChild = wrapperFields.querySelector('.form-group:last-child')
         const currentLength =  wrapperFields.children.length;
         console.log(wrapperFields)
-        lastChild.insertAdjacentHTML('afterend', template(currentLength + 1));    
+        lastChild.insertAdjacentHTML('afterend', template(currentLength + 1));
     })
 
     removePengikutButton.addEventListener('click', () => {
@@ -154,9 +159,10 @@
         const currentLength =  wrapperFields.children.length;
         console.log(wrapperFields)
         if (currentLength != 1) {
-            lastChild.remove(template); 
+            lastChild.remove(template);
         }
     })
 </script>
-
+@include('sweetalert::alert')
 @endsection
+
