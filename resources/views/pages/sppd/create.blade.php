@@ -28,9 +28,13 @@
                                 </ul>
                             </div>
                         @endif
-                        <form class="forms-sample" action="{{ route('sppd.store') }}" method="POST">
+                        <form id="form-sppd" class="forms-sample" action="{{ route('sppd.store') }}" method="POST">
                             @csrf
                             <div class="row">
+                                <div class="form-group">
+                                    <label for="nomor_surat">Nomor Surat</label>
+                                    <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" placeholder="Tulis Nomor Surat">
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="pejabat_pemerintah">Pejabat Pemberi Perintah</label>
@@ -43,7 +47,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="tempat_berangkat">Tempat Berangkat</label>
-                                        <input type="text" class="form-control" id="tempat_berangkat" name="tempat_berangkat" placeholder="Tulis Tempat Keberangkatan">
+                                        <input type="text" class="form-control" id="tempat_berangkat" name="tempat_berangkat" value="DKP Kab. Boyolali" placeholder="Tulis Tempat Keberangkatan">
                                     </div>
                                     <div class="form-group">
                                         <label for="tgl_pergi">Tanggal Pergi</label>
@@ -56,6 +60,10 @@
                                     <div class="form-group">
                                         <label for="transportasi">Transportasi</label>
                                         <input type="text" class="form-control" id="transportasi" name="transportasi" placeholder="Tulis Transportasi yang Digunakan">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tgl_keluar">Tanggal Dikeluarkan</label>
+                                        <input type="date" class="form-control" id="tgl_keluar" name="tgl_keluar" placeholder="Pilih Tanggal Dikeluarkan">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -84,10 +92,6 @@
                                         <label for="mata_anggaran">Mata Anggaran</label>
                                         <input type="text" class="form-control" id="mata_anggaran" name="mata_anggaran" placeholder="Tulis Mata Anggaran">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
                                     <div class="form-group">
                                         <label for="keterangan">Keterangan</label>
                                         <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Tulis Keterangan">
@@ -98,31 +102,23 @@
                                 <div class="col">
                                     <div class="d-sm-flex justify-content-between align-items-center">
                                         <div>
-                                            <label for=pengikut>Pengikut</label>
+                                            <label for=tempat>Tujuan Berangkat dan Tiba</label>
                                         </div>
                                         <div>
-                                            <button id="add-pengikut-button" type="button" class="btn btn-success">
-                                                <i class="mdi mdi-plus"></i>
+                                            <button id="add-tempat-button" type="button" class="btn btn-success">
+                                                Tekan Untuk Menambahkan Tujuan
                                             </button>
-                                            <button id="remove-pengikut-button" type="button" class="btn btn-danger">
-                                                <i class="mdi mdi-minus"></i>
+                                            <button id="remove-tempat-button" type="button" class="btn btn-danger">
+                                                Hapus
                                             </button>
                                         </div>
                                     </div>
-                                    <div id="pengikut-wrapper">
-                                        <div class="form-group">
-                                            <label>Pengikut 1</label>
-                                            <select class="js-example-basic-multiple w-100" name="pengikut[]" id="pengikut">
-                                                <option value="">Pilih Salah Satu</option>
-                                                @foreach ($sppd as $s)
-                                                    <option value="{{ $s->id }}">{{ $s->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                    <br/>
+                                    <div id="tempat-wrapper">
                                     </div>
                                 </div>
                             </div>
-                    </div>
+                        </div>
                     <div class="d-grid">
                         <button type="submit" class="btn btn-primary me-2">Tambah</button>
                     </div>
@@ -133,36 +129,99 @@
     </div>
     </div>
     </div>
-
+@include('sweetalert::alert')
 <script>
-    const wrapperFields = document.querySelector('#pengikut-wrapper');
-    const addPengikutButton = document.querySelector('#add-pengikut-button');
-    const removePengikutButton = document.querySelector('#remove-pengikut-button');
-    const pengikuts = [];
+    const form = document.querySelector('#form-sppd');
+    const wrapperFields = document.querySelector('#tempat-wrapper');
+    const addTempatButton = document.querySelector('#add-tempat-button');
+    const removeTempatButton = document.querySelector('#remove-tempat-button');
 
-    const template = (position) =>`<div class="form-group">
-            <label>Pengikut ${position}</label>
-            <select class="js-example-basic-multiple w-100" name="pengikut[]"
-                id="pengikut">
-                '@foreach($sppd as $s) <option value="{{ $s->id }}">{{$s->name}}</option> @endforeach
-            </select>
-        </div>`
+    const template = (position) =>
+        `<div class="form-group">
+            <label> Romawi ${position}</label>
+            <div class="row">
+                <div class="col">
+                    <label for="tempat_tujuan_${position}">Tujuan ${position}</label>
+                    <input type="text" class="form-control" id="tempat_tujuan_${position}" name="tempat_tujuan_${position}" placeholder="Tulis Tempat Berangkat">
+                </div>
+                <div class="col">
+                    <label for="tgl_tiba_${position}">Tanggal Tiba</label>
+                    <input type="date" class="form-control" id="tgl_tiba_${position}" name="tgl_tiba_${position}" placeholder="Pilih Tanggal Tiba">
+                </div>
+                <div class="col">
+                    <label for="tgl_berangkat_dari_${position}">Tanggal Berangkat dari</label>
+                    <input type="date" class="form-control" id="tgl_berangkat_dari_${position}" name="tgl_berangkat_dari_${position}" placeholder="Tulis Tempat Tujuan">
+            </div>
+        </div>`;
 
-    addPengikutButton.addEventListener('click', () => {
-        const lastChild = wrapperFields.querySelector('.form-group:last-child')
-        const currentLength =  wrapperFields.children.length;
-        console.log(wrapperFields)
-        lastChild.insertAdjacentHTML('afterend', template(currentLength + 1));    
-    })
+    let position = 1;
 
-    removePengikutButton.addEventListener('click', () => {
-        const lastChild = wrapperFields.querySelector('.form-group:last-child')
-        const currentLength =  wrapperFields.children.length;
-        console.log(wrapperFields)
-        if (currentLength != 1) {
-            lastChild.remove(template); 
-        }
-    })
+    addTempatButton.addEventListener('click', () => {
+    if (position > 3) {
+        Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Maaf, sudah melebihi limit tempat yang dapat ditambahkan.',
+        showConfirmButton: false,
+        timer: 1500
+        })
+        return;
+    }
+
+    wrapperFields.insertAdjacentHTML('beforeend', template(position));
+    position++;
+    });
+
+    removeTempatButton.addEventListener('click', () => {
+    if (position > 1) {
+        const lastTempat = wrapperFields.lastElementChild;
+        lastTempat.remove();
+        position--;
+    }
+    });
+    form.addEventListener('submit', (event) => {
+    // Pastikan data dari wrapper juga dikirim bersama form utama
+    const tempatBerangkat = document.querySelectorAll('[id^="tempat_berangkat_"]');
+    const tglBerangkat = document.querySelectorAll('[id^="tgl_berangkat_"]');
+    const tempatTiba = document.querySelectorAll('[id^="tempat_tiba_"]');
+    const tglTiba = document.querySelectorAll('[id^="tgl_tiba_"]');
+    const tempatBerangkatValues = [];
+    const tglBerangkatValues = [];
+    const tempatTibaValues = [];
+    const tglTibaValues = [];
+
+    // Dapatkan nilai dari setiap input field
+    tempatBerangkat.forEach((input) => {
+        tempatBerangkatValues.push(input.value);
+    });
+
+    tglBerangkat.forEach((input) => {
+        tglBerangkatValues.push(input.value);
+    });
+
+    tempatTiba.forEach((input) => {
+        tempatTibaValues.push(input.value);
+    });
+
+    tglTiba.forEach((input) => {
+        tglTibaValues.push(input.value);
+    });
+
+    // Tambahkan data dari wrapper ke dalam form utama
+    const wrapperData = {
+        tempat_berangkat: tempatBerangkatValues,
+        tgl_berangkat: tglBerangkatValues,
+        tempat_tiba: tempatTibaValues,
+        tgl_tiba: tglTibaValues,
+    };
+
+    const wrapperDataJson = JSON.stringify(wrapperData);
+    const wrapperInput = document.createElement('input');
+    wrapperInput.type = 'hidden';
+    wrapperInput.name = 'wrapper_data';
+    wrapperInput.value = wrapperDataJson;
+    form.appendChild(wrapperInput);
+    });
 </script>
 
 @endsection

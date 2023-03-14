@@ -79,5 +79,5 @@
 
         </div>
     </div>
-    @include('sweetalert::alert')
+    <!-- @include('sweetalert::alert') -->
 @endsection

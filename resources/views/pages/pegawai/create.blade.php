@@ -50,6 +50,10 @@
                                 <label for="golongan">Golongan</label>
                                 <input type="text" class="form-control" name="golongan" id="golongan" placeholder="Tulis Golongan Pegawai">
                             </div>
+                            <div class="form-group">
+                                <label for="eselon">Tingkat (Eselon)</label>
+                                <input type="text" class="form-control" name="eselon" id="eselon" placeholder="Tulis Eselon Pegawai">
+                            </div>
                     </div>
                     <div class="d-grid">
                         <button type="submit" class="btn btn-primary me-2">Tambah</button>

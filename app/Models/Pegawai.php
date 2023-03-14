@@ -12,7 +12,7 @@ class Pegawai extends Model
 {
     use HasFactory;
     // public $incrementing = false;
-    protected $fillable = ['id', 'nip', 'name', 'jabatan', 'pangkat', 'golongan'];
+    protected $fillable = ['id', 'nip', 'name', 'jabatan', 'pangkat', 'golongan', 'eselon'];
 
     /**
      * Get all of the comments for the Pegawai

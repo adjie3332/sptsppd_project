@@ -39,36 +39,61 @@ class SptController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'nomor_surat' => 'required',
-            'dasar_perintah' => 'required',
-            'maksud_tugas' => 'required',
-            'tgl_pergi' => 'required',
-            'tgl_kembali' => 'required',
-            'waktu' => 'required',
-            'tempat' => 'required',
-            'tempat_ditetapkan' => 'required',
-            'tgl_ditetapkan' => 'required',
-            'yang_menetapkan' => 'required',
-        ]);
-        $spt = Spt::updateOrCreate([
-            'nomor_surat' => $request->nomor_surat,
-            'dasar_perintah' => $request->dasar_perintah,
-            'maksud_tugas' => $request->maksud_tugas,
-            'tgl_pergi' => $request->tgl_pergi,
-            'tgl_kembali' => $request->tgl_kembali,
-            'waktu' => $request->waktu,
-            'tempat' => $request->tempat,
-            'tempat_ditetapkan' => $request->tempat_ditetapkan,
-            'tgl_ditetapkan' => $request->tgl_ditetapkan,
-            'yang_menetapkan' => $request->yang_menetapkan,
-        ]);
-        $spt->diperintah()->sync($request->diperintah);
+{
+    $request->validate([
+        'nomor_surat' => 'nullable',
+        'dasar_perintah' => 'nullable',
+        'maksud_tugas' => 'required',
+        'tgl_pergi' => 'required',
+        'tgl_kembali' => 'required',
+        'waktu' => 'required',
+        'tempat' => 'required',
+        'tempat_ditetapkan' => 'required',
+        'tgl_ditetapkan' => 'required',
+        'yang_menetapkan' => 'required',
+    ]);
 
-        return redirect()->route('spt.index')
-            ->with('toast_success', 'Data SPT Berhasil Ditambahkan');
+    $nama_diperintah = $request->diperintah;
+    $tgl_pergi = $request->tgl_pergi;
+    $tgl_kembali = $request->tgl_kembali;
+
+    // Cek apakah nama dan tanggal perintah sudah ada di database
+    $existingSpt = Spt::whereHas('diperintah', function ($query) use ($request) {
+        $query->whereIn('pegawai_id', $request->diperintah);
+    })
+    ->where(function ($query) use ($request) {
+        $query->whereBetween('tgl_pergi', [$request->tgl_pergi, $request->tgl_kembali])
+              ->orWhereBetween('tgl_kembali', [$request->tgl_pergi, $request->tgl_kembali])
+              ->orWhere(function ($query) use ($request) {
+                  $query->where('tgl_pergi', '<=', $request->tgl_pergi)
+                        ->where('tgl_kembali', '>=', $request->tgl_kembali);
+              });
+    })->first();
+
+    // Jika sudah ada, berikan alert dan kembalikan ke halaman sebelumnya
+    if ($existingSpt) {
+        session()->flash('toast_error', 'Nama telah diperintahkan pada tanggal yang sama!');
+        return redirect()->back();
     }
+
+    // Jika belum ada, simpan data ke database
+    $spt = Spt::updateOrCreate([
+        'nomor_surat' => $request->nomor_surat,
+        'dasar_perintah' => $request->dasar_perintah,
+        'maksud_tugas' => $request->maksud_tugas,
+        'tgl_pergi' => $request->tgl_pergi,
+        'tgl_kembali' => $request->tgl_kembali,
+        'waktu' => $request->waktu,
+        'tempat' => $request->tempat,
+        'tempat_ditetapkan' => $request->tempat_ditetapkan,
+        'tgl_ditetapkan' => $request->tgl_ditetapkan,
+        'yang_menetapkan' => $request->yang_menetapkan,
+    ]);
+    $spt->diperintah()->sync($request->diperintah);
+
+    return redirect()->route('spt.index')
+        ->with('toast_success', 'Data SPT Berhasil Ditambahkan');
+}
 
     /**
      * Display the specified resource.

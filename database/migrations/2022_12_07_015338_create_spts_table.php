@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('spts', function (Blueprint $table) {
             $table->id();
-            $table->string('nomor_surat')->require();
-            $table->string('dasar_perintah')->required();
+            $table->string('nomor_surat')->nullable();
+            $table->string('dasar_perintah')->nullable();
             $table->string('maksud_tugas')->required();
             $table->date('tgl_pergi', 100)->required();
             $table->date('tgl_kembali', 100)->required();

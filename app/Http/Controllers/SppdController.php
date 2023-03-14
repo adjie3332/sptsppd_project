@@ -48,6 +48,7 @@ class SppdController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'nomor_surat' => 'nullable',
             'maksud_perintah' => 'required',
             'transportasi' => 'required',
             'tempat_berangkat' => 'required',
@@ -58,10 +59,22 @@ class SppdController extends Controller
             'pejabat_diperintah' => 'required',
             'instansi' => 'required',
             'mata_anggaran' => 'required',
+            'keterangan' => 'nullable',
+            'tgl_keluar' => 'required',
+            'tempat_tujuan_1' => 'nullable',
+            'tgl_tiba_1' => 'nullable',
+            'tgl_berangkat_dari_1' => 'nullable',
+            'tempat_tujuan_2' => 'nullable',
+            'tgl_tiba_2' => 'nullable',
+            'tgl_berangkat_dari_2' => 'nullable',
+            'tempat_tujuan_3' => 'nullable',
+            'tgl_tiba_3' => 'nullable',
+            'tgl_berangkat_dari_3' => 'nullable',
         ]);
 
         // dd($request->all());
         $sppd = Sppd::updateOrCreate([
+            'nomor_surat' => $request->nomor_surat,
             'maksud_perintah' => $request->maksud_perintah,
             'transportasi' => $request->transportasi,
             'tempat_berangkat' => $request->tempat_berangkat,
@@ -73,6 +86,16 @@ class SppdController extends Controller
             'instansi' => $request->instansi,
             'mata_anggaran' => $request->mata_anggaran,
             'keterangan' => $request->keterangan,
+            'tgl_keluar' => $request->tgl_keluar,
+            'tempat_tujuan_1' => $request->tempat_tujuan_1,
+            'tgl_tiba_1' => $request->tgl_tiba_1,
+            'tgl_berangkat_dari_1' => $request->tgl_berangkat_dari_1,
+            'tempat_tujuan_2' => $request->tempat_tujuan_2,
+            'tgl_tiba_2' => $request->tgl_tiba_2,
+            'tgl_berangkat_dari_2' => $request->tgl_berangkat_dari_2,
+            'tempat_tujuan_3' => $request->tempat_tujuan_3,
+            'tgl_tiba_3' => $request->tgl_tiba_3,
+            'tgl_berangkat_dari_3' => $request->tgl_berangkat_dari_3,
         ]);
 
         $sppd->pengikut()->sync($request->pengikut);

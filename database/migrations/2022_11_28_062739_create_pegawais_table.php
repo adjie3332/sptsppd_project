@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('jabatan', 100)->required();
             $table->string('pangkat', 100)->required();
             $table->string('golongan', 10)->required();
+            $table->string('eselon', 10)->required();
             $table->timestamps();
         });
     }
