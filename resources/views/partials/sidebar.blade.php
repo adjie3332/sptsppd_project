@@ -19,15 +19,6 @@
                 <span class="menu-title">Data SPT</span>
             </a>
         </li>
-<<<<<<< HEAD
-=======
-        <!-- <li class="nav-item">
-            <a class="nav-link" href="{{ route('biaya.index') }}">
-                <i class="mdi mdi mdi-file-multiple menu-icon"></i>
-                <span class="menu-title">Data Penerimaan Uang</span>
-            </a>
-        </li> -->
->>>>>>> aji
         <li class="nav-item">
             <a class="nav-link" href="{{ route('pegawai.index') }}">
                 <i class="mdi mdi-human-male-female menu-icon"></i>

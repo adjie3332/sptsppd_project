@@ -78,11 +78,5 @@
         </div>
 
     </div>
-<<<<<<< HEAD
-</div>
-@include('sweetalert::alert')
-@endsection
-=======
     <!-- @include('sweetalert::alert') -->
-@endsection
->>>>>>> aji
+    @endsection

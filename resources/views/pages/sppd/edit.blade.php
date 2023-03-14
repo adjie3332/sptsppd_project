@@ -1,164 +1,150 @@
 @extends('index')
 @section('title', 'Edit Data SPPD')
 @section('content')
-    <div class="row">
-        <div class="col-sm-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-sm-flex justify-content-between align-items-center">
-                        <div>
-                            <h4 class="card-title">Edit Data SPPD</h4>
-                        </div>
-                        <div>
-                            <a href="{{ route('sppd.index') }}">
-                                <button type="button" class="btn btn-dark">
-                                    <i class="mdi mdi-arrow-left"></i>
-                                </button>
-                            </a>
-                        </div>
+<div class="row">
+    <div class="col-sm-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-sm-flex justify-content-between align-items-center">
+                    <div>
+                        <h4 class="card-title">Edit Data SPPD</h4>
                     </div>
-                    <div class="mt-3">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <form class="forms-sample" action="{{ route('sppd.update', $sppd->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="pejabat_pemerintah">Pejabat Pemberi Perintah</label>
-                                        <select class="js-example-basic-multiple w-100 form-control"
-                                            name="pejabat_pemerintah" id="pejabat_pemerintah">
-                                            {{-- <option value="">Pilih Salah Satu</option> --}}
-                                            @foreach ($pegawai as $s)
-                                            <option {{ $s->id == $sppd->pejabat_pemerintah ? 'selected' : ''}} value="{{ $s->id }}" class="text-dark">{{$s->name}}</option>
-                                                {{-- <option value="{{ $s->id === $sppd->id? 'selected' : null }}">{{ $s->name }}</option> --}}
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tempat_berangkat">Tempat Berangkat</label>
-                                        <input value="{{ $sppd->tempat_berangkat }}" type="text" class="form-control" id="tempat_berangkat"
-                                            name="tempat_berangkat" placeholder="Tulis Tempat Keberangkatan">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tgl_pergi">Tanggal Pergi</label>
-                                        <input value="{{ $sppd->tgl_pergi }}" type="date" class="form-control" id="tgl_pergi" name="tgl_pergi"
-                                            placeholder="Pilih Tanggal Kepergian">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="maksud_perintah">Maksud Perjalanan Dinas</label>
-                                        <input value="{{ $sppd->maksud_perintah }}" type="text" class="form-control"
-                                            id="maksud_perintah" name="maksud_perintah"
-                                            placeholder="Tulis Maksud Perjalanan Dinas">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="transportasi">Transportasi</label>
-                                        <input value="{{ $sppd->transportasi }}" type="text" class="form-control" id="transportasi" name="transportasi"
-                                            placeholder="Tulis Transportasi yang Digunakan">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="pejabat_diperintah">Pegawai yang Diperintah</label>
-                                        <select class="js-example-basic-multiple w-100"name="pejabat_diperintah"
-                                            id="pejabat_diperintah">
-                                            @foreach ($pegawai as $s)
-                                            <option {{ $s->id == $sppd->pejabat_diperintah? 'selected' : ''}}  value="{{ $s->id }}" class="text-dark">{{$s->name}}</option>
-                                            {{-- <option value="{{ $s->id === $sppd->id? 'selected' : null }}">{{ $s->name }}</option> --}}
-                                                {{-- <option   value="{{ $s->id }}">{{ $s->name }}</option> --}}
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tempat_tujuan">Tempat Tujuan</label>
-                                        <input value="{{ $sppd->tempat_tujuan }}" type="text" class="form-control" id="tempat_tujuan" name="tempat_tujuan"
-                                            placeholder="Tulis Tempat Tujuan">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tgl_kembali">Tanggal Kembali</label>
-                                        <input value="{{ $sppd->tgl_kembali }}" type="date" class="form-control" id="tgl_kembali" name="tgl_kembali"
-                                            placeholder="Pilih Tanggal Kembali">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="instansi">Instansi</label>
-                                        <input value="{{ $sppd->instansi }}" type="text" class="form-control" id="instansi" name="instansi"
-                                            placeholder="Tulis Instansi">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="mata_anggaran">Mata Anggaran</label>
-                                        <input value="{{ $sppd->mata_anggaran }}" type="text" class="form-control" id="mata_anggaran" name="mata_anggaran"
-                                            placeholder="Tulis Mata Anggaran">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="keterangan">Keterangan</label>
-                                        <input value="{{ $sppd->keterangan }}" type="text" class="form-control" id="keterangan" name="keterangan"
-                                            placeholder="Tulis Keterangan">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="d-sm-flex justify-content-between align-items-center">
-                                        <div>
-                                            <label for=pengikut>Pengikut</label>
-                                        </div>
-                                        <div>
-                                            <button id="add-pengikutbutton" type="button" class="btn btn-success">
-                                                <i class="mdi mdi-plus"></i>
-                                            </button>
-                                            <button id="remove-pengikutbutton" type="button" class="btn btn-danger">
-                                                <i class="mdi mdi-minus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div id="pengikut-wrapper">
-                                        @foreach ($sppd->pengikut()->get() as $item)
-                                            <div class="form-group">
-                                                <label>Pengikut {{ $loop->iteration }}</label>
-                                                <select class="js-example-basic-multiple w-100" name="pengikut[]"
-                                                    id="pengikut">
-                                                    <option value="">Pilih Salah Satu</option>
-                                                    @foreach ($pegawai as $s)
-                                                        <option {{ $s->id === $item->id ? 'selected' : null }}
-                                                            value="{{ $s->id }}">{{ $s->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                    <div>
+                        <a href="{{ route('sppd.index') }}">
+                            <button type="button" class="btn btn-dark">
+                                <i class="mdi mdi-arrow-left"></i>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                    <form class="forms-sample" action="{{ route('sppd.update', $sppd->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="pejabat_pemerintah">Pejabat Pemberi Perintah</label>
+                                    <select class="js-example-basic-multiple w-100 form-control" name="pejabat_pemerintah" id="pejabat_pemerintah">
+                                        {{-- <option value="">Pilih Salah Satu</option> --}}
+                                        @foreach ($pegawai as $s)
+                                        <option {{ $s->id == $sppd->pejabat_pemerintah ? 'selected' : ''}} value="{{ $s->id }}" class="text-dark">{{$s->name}}</option>
+                                        {{-- <option value="{{ $s->id === $sppd->id? 'selected' : null }}">{{ $s->name }}</option> --}}
                                         @endforeach
-                                    </div>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tempat_berangkat">Tempat Berangkat</label>
+                                    <input value="{{ $sppd->tempat_berangkat }}" type="text" class="form-control" id="tempat_berangkat" name="tempat_berangkat" placeholder="Tulis Tempat Keberangkatan">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tgl_pergi">Tanggal Pergi</label>
+                                    <input value="{{ $sppd->tgl_pergi }}" type="date" class="form-control" id="tgl_pergi" name="tgl_pergi" placeholder="Pilih Tanggal Kepergian">
+                                </div>
+                                <div class="form-group">
+                                    <label for="maksud_perintah">Maksud Perjalanan Dinas</label>
+                                    <input value="{{ $sppd->maksud_perintah }}" type="text" class="form-control" id="maksud_perintah" name="maksud_perintah" placeholder="Tulis Maksud Perjalanan Dinas">
+                                </div>
+                                <div class="form-group">
+                                    <label for="transportasi">Transportasi</label>
+                                    <input value="{{ $sppd->transportasi }}" type="text" class="form-control" id="transportasi" name="transportasi" placeholder="Tulis Transportasi yang Digunakan">
                                 </div>
                             </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary me-2">Ubah</button>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="pejabat_diperintah">Pegawai yang Diperintah</label>
+                                    <select class="js-example-basic-multiple w-100" name="pejabat_diperintah" id="pejabat_diperintah">
+                                        @foreach ($pegawai as $s)
+                                        <option {{ $s->id == $sppd->pejabat_diperintah? 'selected' : ''}} value="{{ $s->id }}" class="text-dark">{{$s->name}}</option>
+                                        {{-- <option value="{{ $s->id === $sppd->id? 'selected' : null }}">{{ $s->name }}</option> --}}
+                                        {{-- <option   value="{{ $s->id }}">{{ $s->name }}</option> --}}
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tempat_tujuan">Tempat Tujuan</label>
+                                    <input value="{{ $sppd->tempat_tujuan }}" type="text" class="form-control" id="tempat_tujuan" name="tempat_tujuan" placeholder="Tulis Tempat Tujuan">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tgl_kembali">Tanggal Kembali</label>
+                                    <input value="{{ $sppd->tgl_kembali }}" type="date" class="form-control" id="tgl_kembali" name="tgl_kembali" placeholder="Pilih Tanggal Kembali">
+                                </div>
+                                <div class="form-group">
+                                    <label for="instansi">Instansi</label>
+                                    <input value="{{ $sppd->instansi }}" type="text" class="form-control" id="instansi" name="instansi" placeholder="Tulis Instansi">
+                                </div>
+                                <div class="form-group">
+                                    <label for="mata_anggaran">Mata Anggaran</label>
+                                    <input value="{{ $sppd->mata_anggaran }}" type="text" class="form-control" id="mata_anggaran" name="mata_anggaran" placeholder="Tulis Mata Anggaran">
+                                </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="keterangan">Keterangan</label>
+                                    <input value="{{ $sppd->keterangan }}" type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Tulis Keterangan">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="d-sm-flex justify-content-between align-items-center">
+                                    <div>
+                                        <label for=pengikut>Pengikut</label>
+                                    </div>
+                                    <div>
+                                        <button id="add-pengikutbutton" type="button" class="btn btn-success">
+                                            <i class="mdi mdi-plus"></i>
+                                        </button>
+                                        <button id="remove-pengikutbutton" type="button" class="btn btn-danger">
+                                            <i class="mdi mdi-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="pengikut-wrapper">
+                                    @foreach ($sppd->pengikut()->get() as $item)
+                                    <div class="form-group">
+                                        <label>Pengikut {{ $loop->iteration }}</label>
+                                        <select class="js-example-basic-multiple w-100" name="pengikut[]" id="pengikut">
+                                            <option value="">Pilih Salah Satu</option>
+                                            @foreach ($pegawai as $s)
+                                            <option {{ $s->id === $item->id ? 'selected' : null }} value="{{ $s->id }}">{{ $s->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary me-2">Ubah</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    
+
 <script>
     const wrapperFields = document.querySelector('#pengikut-wrapper');
     const addPengikutButton = document.querySelector('#add-pengikutbutton');
     const removePengikutButton = document.querySelector('#remove-pengikutbutton');
     const pengikuts = [];
 
-    const template = (position) =>`<div class="form-group">
+    const template = (position) => `<div class="form-group">
             <label>Pengikut ${position}</label>
             <select class="js-example-basic-multiple w-100" name="pengikut[]"
                 id="pengikut">
@@ -168,17 +154,17 @@
 
     addPengikutButton.addEventListener('click', () => {
         const lastChild = wrapperFields.querySelector('.form-group:last-child')
-        const currentLength =  wrapperFields.children.length;
+        const currentLength = wrapperFields.children.length;
         console.log(wrapperFields)
-        lastChild.insertAdjacentHTML('afterend', template(currentLength + 1));    
+        lastChild.insertAdjacentHTML('afterend', template(currentLength + 1));
     })
 
     removePengikutButton.addEventListener('click', () => {
         const lastChild = wrapperFields.querySelector('.form-group:last-child')
-        const currentLength =  wrapperFields.children.length;
+        const currentLength = wrapperFields.children.length;
         console.log(wrapperFields)
         if (currentLength != 1) {
-            lastChild.remove(template); 
+            lastChild.remove(template);
         }
     })
 </script>

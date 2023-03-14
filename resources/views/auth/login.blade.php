@@ -21,14 +21,14 @@
                                 <input type="email" id="email_address" class="form-control" name="email" required autofocus placeholder="Email">
                                 <label for="email">Alamat Email</label>
                                 @if ($errors->has('email'))
-                                    <span class="text-danger">{{ $errors->first('email') }}</span>
+                                <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="password" class="form-control" id="password" name="password" required placeholder="Password">
                                 <label for="password">Password</label>
                                 @if ($errors->has('password'))
-                                    <span class="text-danger">{{ $errors->first('password') }}</span>
+                                <span class="text-danger">{{ $errors->first('password') }}</span>
                                 @endif
                             </div>
                             <div class="mt-3 text-center d-grid">

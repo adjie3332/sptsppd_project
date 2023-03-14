@@ -526,14 +526,30 @@ class PDF_MC_Table extends FPDF
         }
 
         $this->Row(array('1.', 'Pejabat yang memberi perintah', $pemerintah->jabatan));
-        $this->FourRow(array('2.', 'Nama / NIP Pegawai yang diperintah',  $Diperintah->name . " / " . $Diperintah->nip . "\n"), array('', 'a. Pangkat dan Golongan', $Diperintah->pangkat), array('', 'b. Jabatan' . "\n", $Diperintah->jabatan), array('', 'c. Tingkat menurut peraturan perjalanan', $Diperintah->golongan));
-        $this->Row(array('3.', 'Maksud Perjalanan', $singleData->maksud_perintah));
-        $this->Row(array('4.', 'Alat angkut yang dipergunakan', $singleData->transportasi));
-        $this->TwoRow(array('5.', 'a. Tempat berangkat', $singleData->tempat_berangkat), array('', 'b. Tempat tujuan', $singleData->tempat_tujuan));
-        $this->ThreeRow(array('6.', 'a. Lamanya Perjalanan Dinas', menghitungLamaPerjalanan($singleData->tgl_pergi, $singleData->tgl_kembali)), array('', 'b. Tanggal berangkat', ubahTanggalkeIndo($singleData->tgl_pergi)), array('', 'c. Tanggal harus kembali', ubahTanggalkeIndo($singleData->tgl_kembali)));
-        $this->Row(array('7.', 'Pengikut / NIP', displayEmptyInput($pengikut)));
-        $this->ThreeRow(array('8.', 'Pembebanan Anggaran', ''), array('', 'a. Instansi', $singleData->instansi), array('', 'b. Mata Anggaran', $singleData->mata_anggaran));
-        $this->Row(array('9.', 'Keterangan lain-lain', displayEmptyInput($singleData->keterangan)));
+        $this->Row(array('2.', 'Nama /NIP Pegawai yang diperintah',  $Diperintah->name . " / " . $Diperintah->nip));
+        $this->ThreeRow(
+            array('3.', 'a. Pangkat dan Golongan menurut         PP No.6 Tahun 1997', $Diperintah->pangkat . "\n"),
+            array('', 'b. Jabatan', $Diperintah->jabatan),
+            array('', 'c. Tingkat menurut peraturan perjalanan', $Diperintah->golongan)
+        );
+        $this->Row(array('4.', 'Maksud Perjalanan', $singleData->maksud_perintah));
+        $this->Row(array('5.', 'Alat angkut yang dipergunakan', $singleData->transportasi));
+        $this->TwoRow(
+            array('6.', 'a. Tempat berangkat', $singleData->tempat_berangkat),
+            array('', 'b. Tempat tujuan', $singleData->tempat_tujuan)
+        );
+        $this->ThreeRow(
+            array('7.', 'a. Lamanya Perjalanan Dinas', menghitungLamaPerjalanan($singleData->tgl_pergi, $singleData->tgl_kembali)),
+            array('', 'b. Tanggal berangkat', ubahTanggalkeIndo($singleData->tgl_pergi)),
+            array('', 'c. Tanggal harus kembali', ubahTanggalkeIndo($singleData->tgl_kembali))
+        );
+        $this->Row(array('8.', 'Pengikut / NIP', displayEmptyInput($pengikut)));
+        $this->ThreeRow(
+            array('9.', 'Pembebanan Anggaran', ''),
+            array('', 'a. Instansi', $singleData->instansi),
+            array('', 'b. Mata Anggaran', $singleData->mata_anggaran)
+        );
+        $this->Row(array('10.', 'Keterangan lain-lain', displayEmptyInput($singleData->keterangan)));
         $this->Ln(10);
     }
 
@@ -765,28 +781,29 @@ class PDF_MC_Table extends FPDF
         $this->Cell(0, 5, "NIP. " . $Menetapkan_ttd->nip, 0, 1);
     }
 
+
     function TTD_SPPD($id)
     {
         $ttd_kpl = Sppd::find($id);
         $Menetapkan_ttd = pegawai::find($ttd_kpl->pejabat_pemerintah);
-        $this->Cell(76, 5, "", 0, 0);
+        $this->Cell(90, 5, "", 0, 0);
         // $this->Cell(7, 5, "Plt.", 0, 0);
         $this->Cell(0, 5, "KEPALA DINAS KETAHANAN PANGAN ", 0, 1);
 
-        $this->Cell(90, 5, "", 0, 0);
+        $this->Cell(105, 5, "", 0, 0);
         $this->Cell(0, 5, "KABUPATEN BOYOLALI", 0, 1);
         $this->Ln(20);
 
 
         $this->SetFont('Times', 'BU', 12);
-        $this->Cell(90, 5, "", 0, 0);
+        $this->Cell(106, 5, "", 0, 0);
         $this->Cell(0, 5, $Menetapkan_ttd->name, 0, 1);
 
-        $this->Cell(95, 5, "", 0, 0);
+        $this->Cell(108, 5, "", 0, 0);
         $this->SetFont('Times', '', 12);
         $this->Cell(0, 5, $Menetapkan_ttd->pangkat, 0, 1);
 
-        $this->Cell(90, 5, "", 0, 0);
+        $this->Cell(105, 5, "", 0, 0);
         $this->Cell(0, 5, "NIP. " . $Menetapkan_ttd->nip, 0, 1);
     }
 
@@ -1082,6 +1099,7 @@ class PdfController extends Controller
         $this->fpdf->SetLineWidth(0);
         $this->fpdf->Line(20, 282, 190, 282);
 
+
         // Romawi VII
         $this->fpdf->Cell(7, 5, "VII.", 0, 0);
         $this->fpdf->Cell(0, 5, "PERHATIAN", 0, 1);
@@ -1089,108 +1107,6 @@ class PdfController extends Controller
         $this->fpdf->MultiCell(0, 5, "Pejabat yang berwenang menerbitkan SPPD, pegawai yang melakukan perjalanan dinas, para pejabat yang mengesahkan tanggal berangkat/tiba serta Bendaharawan bertanggung jawab berdasarkan peraturan-peraturan Keuangan  Negara apabila Negara mendapat rugi akibat kesalahan, kealpaannya.", 0, 1);
 
         $this->fpdf->Output('I', 'SPPD.pdf');
-
-        exit;
-    }
-
-
-
-
-
-    // Daftar Penerimaan Uang Perjalanan Dinas
-    public function pdf3($id)
-    {
-        $dataBiaya = Biaya::find($id);
-        // dd($dataBiaya);
-
-        function ubahTglkeIndo($string)
-        {
-            $bulanIndo = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-
-            $tanggal = explode("-", $string)[2];
-            $bulan = explode("-", $string)[1];
-            $tahun = explode("-", $string)[0];
-
-
-            if ($tanggal[0] == 0) {
-                $tgl =  $tanggal[1];
-            } else {
-                $tgl = $tanggal;
-            }
-
-            return $tgl . " " . $bulanIndo[abs($bulan)] . " " . $tahun;
-        }
-        $this->fpdf = new PDF_MC_Table();
-        $this->fpdf->SetMargins(10, 7.5, 10);
-        $this->fpdf->AddPage("L", array(330, 210));
-
-        // Judul, Kegiatan, Lokasi
-        $this->fpdf->Judul($dataBiaya->kegiatan, $dataBiaya->lokasi);
-
-        // Kegiatan, Kode Rekening, Unit Kerja
-        $this->fpdf->Kegiatan($dataBiaya->kegiatan, $dataBiaya->rekening, "Dinas Komunikasi dan Informatika Kabupaten Karanganyar");
-
-        // Tabel Header
-        $this->fpdf->SetWidths(array(10, 62, 90, 30, 25, 37, 30, 26)); // Total width 310
-        $this->fpdf->SetAligns(array("C", "C", "C", "C", "C", "C", "C", "C"));
-        $this->fpdf->SetFont('Times', 'B', 12);
-        $this->fpdf->Row(array('No.', 'Nama / NIP', 'Jabatan / Pangkat / Gol. Eselon', 'Uang Harian', 'Uang Transport', 'Biaya Transport', 'Penerimaan', 'Tanda Tangan'));
-
-        // Tabel Body
-        $this->fpdf->SetAligns(array("L", "L", "L", "L", "L", "L", "L", "L"));
-        $this->fpdf->SetFont('Times', '', 12);
-        $this->fpdf->Row(array('1', 'Hartono, S.Sos., M.M. 19691015 199003 1 007', 'Kepala Bidang Tata kelola Informatika Dinas Kominfo Kab. Karanganyar / Pembina / IV a', 'Uang Harian', 'Rp80.000', '8 Lt x Rp 12.500 = Rp100.000', 'Rp180.000', ''));
-        $this->fpdf->Row(array('2', 'Suparno 19731103 199803 1 012', 'Analis Sistem Informasi dan Diseminasi Hukum Pada Seksi Persandian dan Keamanan Jaringan dinas Kominfo Kab. Karanganyar / Pengatur Tingkat I / II d', 'Uang Harian', 'Rp60.000', '', 'Rp60.000', ''));
-        $this->fpdf->Row(array('2', 'Yahya Fathoni Amri, S.Kom.', 'Network Analyst Dinas Kominfo Kab. Karanganyar / -', '', 'Rp50.000', '', 'Rp50.000', ''));
-
-        // Tabel Jumlah
-        // $this->fpdf->Row(Array('Jumlah', '', 'Rp190.000', 'Rp100.000', 'Rp290.000'));
-        $this->fpdf->Cell(162, 7, "Jumlah", 1, 0, "C");
-        $this->fpdf->Cell(30, 7, "", 1, 0);
-        $this->fpdf->Cell(25, 7, "Rp190.000", 1, 0);
-        $this->fpdf->Cell(37, 7, "Rp100.000", 1, 0);
-        $this->fpdf->Cell(30, 7, "Rp290.000", 1, 0);
-        $this->fpdf->Cell(0, 7, "", 1, 1);
-
-        $this->fpdf->Ln(5);
-
-        // Lunas dibayar
-        $this->fpdf->Cell(230, 5, "", 0, 0);
-        $this->fpdf->Cell(60, 5, "Lunas dibayar, " . ubahTglkeIndo($dataBiaya->hari_tgl), 0, 0);
-        $this->fpdf->Cell(10, 5, "", 0, 1);
-        $this->fpdf->Cell(0, 5, "Mengetahui / Setuju Dibayar", 0, 1);
-
-        // Tanda Tangan
-        $this->fpdf->Cell(10, 5, "Plt.", 0, 0);
-        $this->fpdf->Cell(120, 5, "KEPALA DINAS KOMUNIKASI DAN INFORMATIKA", 0, 0);
-        $this->fpdf->Cell(0, 5, "Mengetahui :", 0, 1);
-
-        $this->fpdf->Cell(10, 5, "", 0, 0);
-        $this->fpdf->Cell(120, 5, "ASISTEN ADMINISTRASI UMUM SEKRETARIS DAERAH", 0, 0);
-        $this->fpdf->Cell(100, 5, "Pejabat Pelaksana Teknis Kegiatan", 0, 0);
-        $this->fpdf->Cell(0, 5, "Bendahara Pengeluaran", 0, 1);
-
-
-        $this->fpdf->Cell(10, 5, "", 0, 0);
-        $this->fpdf->Cell(120, 5, "Selaku Pengguna Anggaran", 0, 0);
-        $this->fpdf->Cell(100, 5, "Bidang Tata Kelola Informatika", 0, 0);
-        $this->fpdf->Cell(0, 5, "Dinas Komunikasi dan Informatika", 0, 1);
-        $this->fpdf->Ln(20);
-
-        $this->fpdf->Cell(10, 5, "", 0, 0);
-        $this->fpdf->SetFont('Times', 'U', 12);
-        $this->fpdf->Cell(120, 5, "Drs. SUJARNO, M.Si.", 0, 0);
-        $this->fpdf->Cell(100, 5, "Hartono, S.Sos., M.M.", 0, 0);
-        $this->fpdf->Cell(0, 5, "ENDANG WERDININGSIH, S.Sos.", 0, 1);
-
-        $this->fpdf->Cell(10, 5, "", 0, 0);
-        $this->fpdf->SetFont('Times', '', 12);
-        $this->fpdf->Cell(120, 5, "NIP.19630107 199003 1 004 ", 0, 0);
-        $this->fpdf->Cell(100, 5, "NIP. 19691015 199003 1 007", 0, 0);
-        $this->fpdf->Cell(0, 5, "NIP. 19711210 199403 2 002", 0, 1);
-
-
-        $this->fpdf->Output('I', 'Daftar Uang.pdf');
 
         exit;
     }

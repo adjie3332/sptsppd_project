@@ -105,6 +105,7 @@
         width: $sidebar-width-icon;
         padding-left: 1.625rem;
         background: $sidebar-icon-only-bg;
+        }
         .navbar-toggler {
           @at-root #{selector-append(".sidebar-dark", &)} {
             color: $sidebar-light-menu-color;
@@ -299,7 +300,6 @@
     }
     
   }
-}
 
 // Hidden Sidebar
 .sidebar-hidden {
