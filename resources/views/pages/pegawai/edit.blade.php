@@ -37,7 +37,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="id">NIP</label>
-                                <input type="text" class="form-control" name="id" id="id" value="{{ $pegawai->id }}" placeholder="Tulis NIP Pegawai">
+                                <input type="text" class="form-control" name="id" id="id" value="{{ $pegawai->nip }}" placeholder="Tulis NIP Pegawai">
                             </div>
                             <div class="form-group">
                                 <label for="jabatan">Jabatan</label>

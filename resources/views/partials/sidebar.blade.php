@@ -33,7 +33,7 @@
         </li>
         <li class="nav-item nav-category">Master Setting</li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('instansi.index') }}">
+            <a class="nav-link" href="{{ route('instansi.create') }}">
                 <i class="mdi mdi-settings menu-icon"></i>
                 <span class="menu-title">Data Instansi</span>
             </a>

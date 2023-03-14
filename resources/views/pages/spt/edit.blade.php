@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="waktu">Waktu</label>
-                                        <input type="time" value="{{Carbon\Carbon::now()->format('Y-m-d').'T'.Carbon\Carbon::now()->format('H:i')}}" class="form-control" id="waktu" name="waktu" placeholder="Pilih Waktu Kepergian">
+                                        <input type="time" value="{{ $spt->waktu}}" class="form-control" id="waktu" name="waktu" placeholder="Pilih Waktu Kepergian">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -129,7 +129,7 @@
             </div>
         </div>
     </div>
-    
+
 <script>
     const wrapperFields = document.querySelector('#diperintah-wrapper');
     const addPejabatButton = document.querySelector('#add-diperintah-button');
@@ -148,7 +148,7 @@
         const lastChild = wrapperFields.querySelector('.form-group:last-child')
         const currentLength =  wrapperFields.children.length;
         console.log(wrapperFields)
-        lastChild.insertAdjacentHTML('afterend', template(currentLength + 1));    
+        lastChild.insertAdjacentHTML('afterend', template(currentLength + 1));
     })
 
     removePengikutButton.addEventListener('click', () => {
@@ -156,7 +156,7 @@
         const currentLength =  wrapperFields.children.length;
         console.log(wrapperFields)
         if (currentLength != 1) {
-            lastChild.remove(template); 
+            lastChild.remove(template);
         }
     })
 </script>

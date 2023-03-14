@@ -1072,11 +1072,11 @@ class PdfController extends Controller
             }
         }
         function checkParameters($param1, $param2) {
-            if (isset($param) || !empty($param1) && !isset($param2) || empty($param2)) {
+            if (isset($param1) && !isset($param2)) {
                 return "DKP Kab. Boyolali";
-            } else if (!isset($param1) && (!isset($param2) || empty($param2))) {
+            } else if (!isset($param1)&& (!isset($param2))) {
                 return "";
-            } else if (isset($param1) && !empty($param1) && isset($param2) && !empty($param2)) {
+            } else if (isset($param1)&& isset($param2)) {
                 return $param2;
             }
         }
@@ -1122,7 +1122,7 @@ class PdfController extends Controller
         $this->fpdf->RomawiIII( $dataSppd->tempat_tujuan_2, dateIndo($dataSppd->tgl_tiba_2), $dataSppd->tempat_tujuan_2, checkParameters($dataSppd->tgl_berangkat_dari_2, $dataSppd->tempat_tujuan_3), dateIndo($dataSppd->tgl_berangkat_dari_2));
 
         // Romawi IV
-        $this->fpdf->RomawiIV($dataSppd->tempat_tujuan_3, dateIndo($dataSppd->tgl_tiba_3), $dataSppd->tempat_tujuan_3, checkParameters($dataSppd->tgl_berangkat_dari_3, ''), dateIndo($dataSppd->tgl_berangkat_dari_3));
+        $this->fpdf->RomawiIV($dataSppd->tempat_tujuan_3, dateIndo($dataSppd->tgl_tiba_3), $dataSppd->tempat_tujuan_3, checkParameters('sji', ''), dateIndo($dataSppd->tgl_berangkat_dari_3));
 
         // Garis
         $this->fpdf->SetLineWidth(0);

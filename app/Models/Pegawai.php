@@ -12,7 +12,7 @@ class Pegawai extends Model
 {
     use HasFactory;
     // public $incrementing = false;
-    protected $fillable = ['id', 'nip', 'name', 'jabatan', 'pangkat', 'golongan', 'eselon'];
+    protected $fillable = ['id', 'name', 'nip', 'jabatan', 'pangkat', 'golongan', 'eselon'];
 
     /**
      * Get all of the comments for the Pegawai
@@ -30,22 +30,24 @@ class Pegawai extends Model
         return $this->hasMany(Sppd::class, 'pejabat_diperintah');
     }
 
-
+    public function menetapkanpt()
+    {
+        return $this->hasMany(Spt::class, 'yang_menetapkan');
+    }
     public function kepala_dinass()
     {
         return $this->hasMany(Instansi::class, 'kepala_dinas');
     }
-    public function pejabat_pelaksanaa()
+    public function sekretaris()
     {
-        return $this->hasMany(Instansi::class, 'pejabat_pelaksana');
+        return $this->hasMany(Instansi::class, 'sekretaris');
     }
-    public function bendaharaa()
+    public function kabid_KKP()
     {
-        return $this->hasMany(Instansi::class, 'bendahara');
+        return $this->hasMany(Instansi::class, 'kabid_KKP');
     }
-
-    public function menetapkanpt()
+    public function kabid_KDCP()
     {
-        return $this->hasMany(Spt::class, 'yang_menetapkan');
+        return $this->hasMany(Instansi::class, 'kabid_KDCP');
     }
 }
