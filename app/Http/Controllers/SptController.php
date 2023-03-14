@@ -41,8 +41,8 @@ class SptController extends Controller
     public function store(Request $request)
 {
     $request->validate([
-        // 'nomor_surat' => 'required',
-        // 'dasar_perintah' => 'required',
+        'nomor_surat' => 'nullable',
+        'dasar_perintah' => 'nullable',
         'maksud_tugas' => 'required',
         'tgl_pergi' => 'required',
         'tgl_kembali' => 'required',
@@ -78,8 +78,8 @@ class SptController extends Controller
 
     // Jika belum ada, simpan data ke database
     $spt = Spt::updateOrCreate([
-        // 'nomor_surat' => $request->nomor_surat,
-        // 'dasar_perintah' => $request->dasar_perintah,
+        'nomor_surat' => $request->nomor_surat,
+        'dasar_perintah' => $request->dasar_perintah,
         'maksud_tugas' => $request->maksud_tugas,
         'tgl_pergi' => $request->tgl_pergi,
         'tgl_kembali' => $request->tgl_kembali,

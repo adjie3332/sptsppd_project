@@ -33,6 +33,7 @@
                             <th>Jabatan</th>
                             <th>Pangkat</th>
                             <th>Golongan</th>
+                            <th>Tingkat (Eselon)</th>
                             @guest()
                             @else
                                 <th width=135px>Aksi</th>
@@ -49,6 +50,7 @@
                             <td>{{ $p->jabatan }}</td>
                             <td>{{ $p->pangkat }}</td>
                             <td>{{ $p->golongan }}</td>
+                            <td>{{ $p->eselon }}</td>
                             @guest()
                             @else
                                 <td class="text-center flex flex-row">

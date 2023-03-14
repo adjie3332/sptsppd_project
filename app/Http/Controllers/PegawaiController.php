@@ -44,6 +44,7 @@ class PegawaiController extends Controller
             'jabatan' => 'required',
             'pangkat' => 'required',
             'golongan' => 'required',
+            'eselon' => 'required',
         ]);
         Pegawai::create($request->all());
 
@@ -88,6 +89,7 @@ class PegawaiController extends Controller
             'jabatan' => 'required',
             'pangkat' => 'required',
             'golongan' => 'required',
+            'eselon' => 'required',
         ]);
         $pegawai->update($request->all());
 
