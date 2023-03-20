@@ -16,7 +16,8 @@ class InstansiController extends Controller
     public function index()
     {
         $instansi = Instansi::latest()->paginate(10);
-        return view('pages.instansi', compact('instansi'))
+        $pegawai = Pegawai::all();
+        return view('pages.instansi', compact('instansi', 'pegawai'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 

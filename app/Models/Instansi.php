@@ -26,7 +26,7 @@ class Instansi extends Model
     }
     public function kabid_KDCP()
     {
-        return $this->hasOne(Pegawai::class, 'id', 'kabid_KDCP');
+        return $this->hasOne(Pegawai::class, 'name', 'kabid_KDCP');
     }
 
 }

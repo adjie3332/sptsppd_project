@@ -102,7 +102,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="tempat_ditetapkan">Tempat Ditetapkan</label>
-                                        <input type="text" class="form-control" id="tempat_ditetapkan" name="tempat_ditetapkan" placeholder="Tulis Tempat Ditetapkan">
+                                        <input type="text" class="form-control" id="tempat_ditetapkan" name="tempat_ditetapkan" value="Boyolali" placeholder="Tulis Tempat Ditetapkan">
                                     </div>
                                 </div>
                                 <div class="col">

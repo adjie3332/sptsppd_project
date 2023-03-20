@@ -37,7 +37,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     <label for="nama">Nama Instansi</label>
-                                    <input type="text" class="form-control" name="name" id="name" value="{{ $instansi->nama }}">
+                                    <input type="text" class="form-control" name="nama" id="nama" value="{{ $instansi->nama }}">
                                 </div>
                             </div>
                             <div class="row">
@@ -63,8 +63,8 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="faks">Faksimile</label>
-                                        <input type="text" class="form-control" name="faks" id="faks" value="{{ $instansi->faksimile }}">
+                                        <label for="faksimile">Faksimile</label>
+                                        <input type="text" class="form-control" name="faksimile" id="faksimile" value="{{ $instansi->faksimile }}">
                                     </div>
                                 </div>
                             </div>
@@ -96,34 +96,33 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="kepala_bidang">Kepala Bidang</label>
-                                        <select class="js-example-basic-multiple w-100" name="kepala_bidang" id="kepala_bidang">
+                                        <label for="sekretaris">Sekretaris</label>
+                                        <select class="js-example-basic-multiple w-100" name="sekretaris" id="sekretaris">
                                             <option value="">Pilih Salah Satu</option>
                                             @foreach ($pegawai as $s)
-                                                <option {{ $s->id == $instansi->kepala_bidang ? 'selected' : '' }} value="{{ $s->id }}">{{ $s->name }}</option>
+                                                <option {{ $s->id == $instansi->sekretaris ? 'selected' : '' }} value="{{ $s->id }}">{{ $s->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="pejabat_pelaksana">Pejabat Pelaksana</label>
-                                        <select class="js-example-basic-multiple w-100" name="pejabat_pelaksana"
-                                            id="pejabat_pelaksana">
+                                        <label for="kabid_KKP">Kabid Konsumsi dan Keamanan Pangan</label>
+                                        <select class="js-example-basic-multiple w-100" name="kabid_KKP" id="kabid_KKP">
                                             <option value="">Pilih Salah Satu</option>
                                             @foreach ($pegawai as $s)
-                                                <option {{ $s->id == $instansi->pejabat_pelaksana ? 'selected' : '' }} value="{{ $s->id }}">{{ $s->name }}</option>
+                                                <option {{ $s->id == $instansi->kabid_KKP ? 'selected' : '' }} value="{{ $s->id }}">{{ $s->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="bendahara">Bendahara</label>
-                                        <select class="js-example-basic-multiple w-100" name="bendahara" id="bendahara">
+                                        <label for="kabid_KDCP">Kabid Ketersediaan, Distribusi & Cadangan Pangan</label>
+                                        <select class="js-example-basic-multiple w-100" name="kabid_KDCP" id="kabid_KDCP">
                                             <option value="">Pilih Salah Satu</option>
                                             @foreach ($pegawai as $s)
-                                                <option {{ $s->id == $instansi->bendahara ? 'selected' : '' }} value="{{ $s->id }}">{{ $s->name }}</option>
+                                                <option {{ $s->id == $instansi->kabid_KDCP ? 'selected' : '' }} value="{{ $s->id }}">{{ $s->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

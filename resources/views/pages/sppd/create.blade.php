@@ -136,9 +136,9 @@
     const addTempatButton = document.querySelector('#add-tempat-button');
     const removeTempatButton = document.querySelector('#remove-tempat-button');
 
-    const template = (position) =>
+    const template = (position, romawi) =>
         `<div class="form-group">
-            <label> Romawi ${position}</label>
+            <label> Romawi ${romawi}</label>
             <div class="row">
                 <div class="col">
                     <label for="tempat_tujuan_${position}">Tujuan ${position}</label>
@@ -155,9 +155,10 @@
         </div>`;
 
     let position = 1;
+    let romawi = 2;
 
     addTempatButton.addEventListener('click', () => {
-    if (position > 3) {
+    if (position > 3 && romawi > 4 ) {
         Swal.fire({
         position: 'top-end',
         icon: 'error',
@@ -168,15 +169,17 @@
         return;
     }
 
-    wrapperFields.insertAdjacentHTML('beforeend', template(position));
+    wrapperFields.insertAdjacentHTML('beforeend', template(position, romawi));
     position++;
+    romawi++
     });
 
     removeTempatButton.addEventListener('click', () => {
-    if (position > 1) {
+    if (position > 1 && romawi > 2) {
         const lastTempat = wrapperFields.lastElementChild;
         lastTempat.remove();
         position--;
+        romawi--;
     }
     });
     form.addEventListener('submit', (event) => {
