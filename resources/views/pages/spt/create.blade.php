@@ -39,7 +39,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="nomor_surat">Nomor Surat</label>
-                                        <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" placeholder="Tulis Nomor Surat"></input>
+                                        <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" placeholder="Tulis Nomor Surat" value="094 /  / 4.7 / 2023"></input>
                                     </div>
                                     <div class="form-group">
                                         <label for="tgl_pergi">Tanggal Kepergian</label>

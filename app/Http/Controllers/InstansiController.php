@@ -66,9 +66,9 @@ class InstansiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Instansi $instansi)
+    public function show(Instansi $instansi )
     {
-        return view('pages.instansi.show', compact('instansi'));
+        return view('pages.instansi.show', compact('instansi', 'pegawai'));
     }
 
     /**

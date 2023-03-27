@@ -79,25 +79,41 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="kepala_dinas">Kepala Dinas</label>
-                                <input type="text" class="form-control" name="kepala_dinas" id="kepala_dinas" value="{{ $i->kepala_dinas }}" disabled>
+                                @foreach ($pegawai as $p)
+                                    @if ($p->id == $i->kepala_dinas)
+                                        <input type="text" class="form-control" name="kepala_dinas" id="kepala_dinas" value="{{ $p->name }}" disabled>
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="sekretaris">Sekretaris</label>
-                                <input type="text" class="form-control" name="sekretaris" id="sekretaris" value="{{ $i->sekretaris }}" disabled>
+                                @foreach ($pegawai as $p)
+                                    @if ($p->id == $i->sekretaris)
+                                        <input type="text" class="form-control" name="sekretaris" id="sekretaris" value="{{ $p->name }}" disabled>
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="kabid_KKP">Kabid Konsumsi dan Keamanan Pangan</label>
-                                <input type="text" class="form-control" name="kabid_KKP" id="kabid_KKP" value="{{ $i->kabid_KKP }}" disabled>
+                                @foreach ($pegawai as $p)
+                                    @if ($p->id == $i->kabid_KKP)
+                                        <input type="text" class="form-control" name="kabid_KKP" id="kabid_KKP" value="{{ $p->name }}" disabled>
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="kabid_KDCP">Kabid Ketersediaan, Distribusi & Cadangan Pangan</label>
-                                <input type="text" class="form-control" name="kabid_KDCP" id="kabid_KDCP" value="{{ $i->kabid_KDCP }}" disabled>
+                                @foreach ($pegawai as $p)
+                                    @if ($p->id == $i->kabid_KDCP)
+                                        <input type="text" class="form-control" name="kabid_KDCP" id="kabid_KDCP" value="{{ $p->name }}" disabled>
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InstansiController;
+use App\Http\Controllers\LaporanController;
 
 use App\Http\Controllers\PdfController;
 
@@ -44,6 +45,7 @@ Route::get('/pdf3/{id}', [PdfController::class, 'pdf3']);
 // contact me
 Route::get('contact-us', [ContactController::class, 'index']);
 Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
+
 // crud
 Route::resource('pegawai', PegawaiController::class)->middleware('auth');
 Route::resource('sppd', SppdController::class)->middleware('auth');
@@ -51,7 +53,14 @@ Route::resource('spt', SptController::class)->middleware('auth');
 Route::resource('biaya', BiayaController::class)->middleware('auth');
 Route::resource('instansi', InstansiController::class)->middleware('auth');
 
+// Laporan
+Route::get('/laporan/spt', [LaporanController::class, 'lap_spt'])->name('laporan.lap_spt');
+Route::get('/laporan/sppd', [LaporanController::class, 'lap_sppd'])->name('laporan.lap_sppd');
+
+
+// dashboard
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
+
 
 
 // logActivity

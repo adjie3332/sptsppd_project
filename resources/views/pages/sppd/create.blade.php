@@ -33,7 +33,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     <label for="nomor_surat">Nomor Surat</label>
-                                    <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" placeholder="Tulis Nomor Surat">
+                                    <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" placeholder="Tulis Nomor Surat" value="094 /  / 4.7 / 2023">
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">

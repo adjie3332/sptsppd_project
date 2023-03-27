@@ -12,6 +12,7 @@
                     <div>
                         <a href="{{ route('spt.create') }}">
                             <button type="button" class="btn btn-success btn-md">
+                            <i class="mdi mdi-plus"></i>
                                 Tambah Data
                             </button>
                         </a>
@@ -23,6 +24,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Tanggal Ditetapkan</th>
                             <th>Nomor Surat</th>
                             <th>Dasar Perintah</th>
                             <th>Pegawai yang Diperintah</th>
@@ -32,7 +34,6 @@
                             <th>Waktu</th>
                             <th>Tempat</th>
                             <th>Tempat Ditetapkan</th>
-                            <th>Tanggal Ditetapkan</th>
                             <th>Yang Menetapkan</th>
                             @guest()
                             @else
@@ -44,6 +45,7 @@
                         @foreach ($spt as $s)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $s->tgl_ditetapkan }}</td>
                                 <td>{{ $s->nomor_surat }}</td>
                                 <td>{{ $s->dasar_perintah }}</td>
                                 <td>
@@ -57,7 +59,6 @@
                                 <td>{{ $s->waktu }}</td>
                                 <td>{{ $s->tempat }}</td>
                                 <td>{{ $s->tempat_ditetapkan }}</td>
-                                <td>{{ $s->tgl_ditetapkan }}</td>
                                 <td>{{ $s->menetapkan->name }}</td>
                                 @guest()
                                 @else

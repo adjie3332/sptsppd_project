@@ -20,6 +20,19 @@ class SppdController extends Controller
         return view('pages.sppd', compact('sppd'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function report()
+    {
+        $sppd = Sppd::all();
+        return view('pages.report.sppd', compact('sppd'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
