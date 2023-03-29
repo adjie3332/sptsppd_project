@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
-            $table->string('nip')->unique();
+            $table->string('nip')->required();
             // $table->bigInteger('nip')->primary();
             $table->string('name', 100)->required();
             // $table->integer('nip', 100, false, false)->unique()->required();

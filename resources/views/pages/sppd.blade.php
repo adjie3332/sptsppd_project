@@ -7,11 +7,13 @@
                 <div>
                     <h4 class="card-title">Daftar Data SPPD</h4>
                 </div>
+
                 @guest()
                 @else
                     <div>
                         <a href="{{ route('sppd.create') }}">
                             <button type="button" class="btn btn-success btn-md">
+                                <i class="mdi mdi-plus-box"></i>
                                 Tambah Data
                             </button>
                         </a>
@@ -23,6 +25,7 @@
                     <thead>
                         <tr>
                             <th rowspan="2">No</th>
+                            <th rowspan="2">Tanggal Dikeluarkan</th>
                             <th rowspan="2" >Nomor Surat</th>
                             <th rowspan="2">Pejabat Pemberi Perintah</th>
                             <th rowspan="2">Pegawai yang Diperintah</th>
@@ -35,7 +38,6 @@
                             <th rowspan="2">Pengikut - NIP</th>
                             <th colspan="2">Pembebanan Anggaran</th>
                             <th rowspan="2">Keterangan</th>
-                            <th rowspan="2">Tanggal Dikeluarkan</th>
                             @guest()
                             @else
                                 <th rowspan="2" width=135px>Aksi</th>
@@ -50,6 +52,7 @@
                         @foreach ($sppd as $s)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $s->tgl_keluar }}</td>
                                 <td>{{ $s->nomor_surat }}</td>
                                 <td>{{ $s->pejabat_pemerintahh->name }}</td>
                                 <td>{{ $s->pejabat_diperintahh->name }}</td>
@@ -65,7 +68,6 @@
                                 <td>{{ $s->instansi }}</td>
                                 <td>{{ $s->mata_anggaran }}</td>
                                 <td>{{ $s->keterangan }}</td>
-                                <td>{{ $s->tgl_keluar }}</td>
                                 @guest()
                                 @else
                                     <td class="text-center flex flex-row">

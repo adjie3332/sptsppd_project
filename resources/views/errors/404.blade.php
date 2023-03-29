@@ -19,7 +19,7 @@
             Dashboard.
         </p>
         <div class="d-flex justify-content-center">
-            <a href="{{ route('dashboard') }}" class="btn btn-back d-inline-flex text-white border-0">
+            <a href="/" class="btn btn-back d-inline-flex text-white border-0">
                 Back to Dashboard
             </a>
         </div>

@@ -10,18 +10,23 @@ class Instansi extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id', 'nama', 'alamat', 'telepon', 'faksimile', 'website', 'email', 'kodepos', 'kepala_dinas', 'pejabat_pelaksana', 'bendahara'];
+    protected $fillable = ['id', 'nama', 'alamat', 'telepon', 'faksimile', 'website', 'email', 'kodepos', 'kepala_dinas', 'sekretaris', 'kabid_KKP', 'kabid_KDCP'];
 
     public function kepalaa_dinas()
     {
         return $this->hasOne(Pegawai::class, 'id', 'kepala_dinas');
     }
-    public function pejabatt_pelaksana()
+    public function sekretaris()
     {
-        return $this->hasOne(Pegawai::class, 'id', 'pejabat_pelaksana');
+        return $this->hasOne(Pegawai::class, 'id', 'sekretaris');
     }
-    public function bendaharas()
+    public function kabid_KKP()
     {
-        return $this->hasOne(Pegawai::class, 'id', 'bendahara');
+        return $this->hasOne(Pegawai::class, 'id', 'kabid_KKP');
     }
+    public function kabid_KDCP()
+    {
+        return $this->hasOne(Pegawai::class, 'name', 'kabid_KDCP');
+    }
+
 }

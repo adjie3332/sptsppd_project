@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use App\Http\Controllers\SppdController;
 use App\Http\Controllers\SptController;
+use App\Http\Controllers\LaporanController;
 use Attribute;
 use League\CommonMark\Extension\Attributes\Node\Attributes;
 
@@ -92,6 +93,34 @@ class PDF_MC_Table extends FPDF
             $text = $text1 . "\n" . $text2;
             $this->MultiCell($w, 5, $text, 0, $a);
             $this->SetXY($x + $w, $y);
+        }
+        //Go to the next line
+        $this->Ln($h);
+    }
+
+    function RowNoSpace($data)
+    {
+        //Calculate the height of the row
+        $nb=0;
+        for($i=0;$i<count($data);$i++)
+            $nb=max($nb,$this->NbLines($this->widths[$i],$data[$i]));
+        $h=(5*$nb);
+        //Issue a page break first if needed
+        $this->CheckPageBreak($h);
+        //Draw the cells of the row
+        for($i=0;$i<count($data);$i++)
+        {
+            $w=$this->widths[$i];
+            $a=isset($this->aligns[$i]) ? $this->aligns[$i] : 'L';
+            //Save the current position
+            $x=$this->GetX();
+            $y=$this->GetY();
+            //Draw the border
+            $this->Rect($x,$y,$w,$h);
+            //Print the text
+            $this->MultiCell($w,5,$data[$i],0,$a);
+            //Put the position to the right of the cell
+            $this->SetXY($x+$w,$y);
         }
         //Go to the next line
         $this->Ln($h);
@@ -363,7 +392,7 @@ class PDF_MC_Table extends FPDF
         $this->SetFont('Times', '', 12);
         $this->Cell(30, 5, 'Dasar', 0, 0);
         $this->Cell(5, 5, ':', 0, 0);
-        $this->MultiCell(0, 6, displayEmptyInput($dasar), 0);
+        $this->MultiCell(0, 5, displayEmptyInput($dasar), 0);
         $this->Ln(1);
     }
 
@@ -378,23 +407,23 @@ class PDF_MC_Table extends FPDF
                 $this->Cell(5, 5, $number.".", 0, 0);
                 $this->Cell(45, 5, 'Nama', 0, 0);
                 $this->Cell(5, 5, ':', 0, 0);
-                $this->MultiCell(0, 6, $listDiperintah[$i]->name, 0);
+                $this->MultiCell(0, 5, $listDiperintah[$i]->name, 0);
 
                 $this->Cell(40, 5, "", 0, 0);
                 $this->Cell(45, 5, 'Pangkat / Gol Ruang', 0, 0);
                 $this->Cell(5, 5, ':', 0, 0);
-                $this->MultiCell(0, 6, $listDiperintah[$i]->pangkat." / ".$listDiperintah[$i]->golongan, 0);
+                $this->MultiCell(0, 5, $listDiperintah[$i]->pangkat." / ".$listDiperintah[$i]->golongan, 0);
 
                 $this->Cell(40, 5, "", 0, 0);
                 $this->Cell(45, 5, 'NIP', 0, 0);
                 $this->Cell(5, 5, ':', 0, 0);
-                $this->MultiCell(0, 6, $listDiperintah[$i]->nip, 0);
+                $this->MultiCell(0, 5, $listDiperintah[$i]->nip, 0);
 
                 $this->Cell(40, 5, "", 0, 0);
                 $this->Cell(45, 5, 'Jabatan', 0, 0);
                 $this->Cell(5, 5, ':', 0, 0);
-                $this->MultiCell(0, 6, $listDiperintah[$i]->jabatan, 0);
-                $this->Ln(5);
+                $this->MultiCell(0, 5, $listDiperintah[$i]->jabatan, 0);
+                $this->Ln(3);
 
                 if($i != count($listDiperintah)-1)$this->Cell(35, 5, "", 0, 0);
             }
@@ -406,7 +435,7 @@ class PDF_MC_Table extends FPDF
     {
         $this->Cell(30, 5, 'Untuk', 0, 0);
         $this->Cell(5, 5, ':', 0, 0);
-        $this->MultiCell(0, 6, displayEmptyInput($untuk) , 0);
+        $this->MultiCell(0, 5, displayEmptyInput($untuk) , 0);
         $this->Cell(35, 5, '', 0, 0);
     }
 
@@ -414,14 +443,14 @@ class PDF_MC_Table extends FPDF
     {
         $this->Cell(50, 5, 'Hari', 0, 0);
         $this->Cell(5, 5, ':', 0, 0);
-        $this->Cell(0, 6, $hari, 0, 1);
+        $this->Cell(0, 5, $hari, 0, 1);
         $this->Cell(35, 5, '', 0, 0);
     }
     function Date_SPT($tanggal)
     {
         $this->Cell(50, 5, 'Tanggal', 0, 0);
         $this->Cell(5, 5, ':', 0, 0);
-        $this->Cell(0, 6, $tanggal, 0, 1);
+        $this->Cell(0, 5, $tanggal, 0, 1);
         $this->Cell(35, 5, '', 0, 0);
     }
     function Waktu_Tempat($waktu, $tempat)
@@ -537,13 +566,31 @@ class PDF_MC_Table extends FPDF
             }
         }
 
+        // function menghitungLamaPerjalanan($berangkat, $pulang){
+        //     $tglBerangkat = explode("-", $berangkat)[2];
+        //     $tglPulang = explode("-", $pulang)[2];
+
+        //     $jeda = $tglPulang - $tglBerangkat;
+        //     if($jeda == 1){
+        //         return "1 hari";
+        //     }else{
+        //         $tgl = $jeda + 1;
+        //         return $tgl. " hari";
+        //     }
+        // }
+
         function menghitungLamaPerjalanan($berangkat, $pulang){
             $tglBerangkat = explode("-", $berangkat)[2];
             $tglPulang = explode("-", $pulang)[2];
 
             $jeda = $tglPulang - $tglBerangkat;
-            if($jeda == 1){
+
+            // menambahkan pengecekan jika perjalanan hanya berlangsung selama 1 hari
+            if($jeda == 0){
                 return "1 hari";
+            // menambahkan pengecekan jika perjalanan berlangsung selama 2 hari
+            }elseif($jeda == 1){
+                return "2 hari";
             }else{
                 $tgl = $jeda + 1;
                 return $tgl. " hari";
@@ -562,73 +609,66 @@ class PDF_MC_Table extends FPDF
         $this->Row(Array('10.', 'Keterangan lain-lain', displayEmptyInput($singleData->keterangan)));
         $this->Ln(10);
     }
-    function bylTeks($input)
-    {
-        if(empty($input)) {
-            return 'DKP Kab. Boyolali';
-        } else {
-            return $input;
-        }
-    }
 
-    function RomawiI($no, $dari1, $tgl1, $ke1)
+    function RomawiI($dari1, $tgl1, $ke1)
     {
-        $this->Cell(75, 5, "", 0, 0);
+        $this->Cell(83, 5, "", 0, 0);
         $this->Cell(7, 5, "I.", 0, 0);
-        $this->Cell(43, 5, "SPPD No", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
-        $this->Cell(0, 6, $no, 0, 1);
+        $this->Cell(30, 5, "Berangkat dari", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
+        $this->Cell(0, 6, $dari1, 0, 0);
+        $this->Ln(4);
 
-        $this->Cell(82, 5, "", 0, 0);
-        $this->Cell(0, 6, "Berangkat dari", 0, 1);
+        $this->Cell(90, 5, "", 0, 0);
+        $this->Cell(0, 6, "(tempat", 0, 1);
 
-        $this->Cell(82, 5, "", 0, 0);
-        $this->Cell(43, 5, "(tempat kedudukan)", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
-        $this->Cell(0, 6, $dari1 , 0, 1);
+        $this->Cell(90, 5, "", 0, 0);
+        $this->Cell(30, 5, "kedudukan)", 0, 1);
+        // $this->Cell(3, 5, ":", 0, 0);
+        // $this->Cell(0, 6, $dari1 , 0, 1);
 
-        $this->Cell(82, 5, "", 0, 0);
-        $this->Cell(43, 5, "Pada Tanggal", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
-        $this->Cell(0, 6, $tgl1, 0, 1);
+        $this->Cell(90, 5, "", 0, 0);
+        $this->Cell(30, 5, "Ke", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
+        $this->MultiCell(0, 6, $ke1, 0, 1);
 
-        $this->Cell(82, 5, "", 0, 0);
-        $this->Cell(43, 5, "Ke", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
-        $this->Cell(0, 6, $ke1, 0, 1);
-        $this->Ln(5);
+        $this->Cell(90, 5, "", 0, 0);
+        $this->Cell(30, 5, "Pada Tanggal", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
+        $this->Cell(0, 5, $tgl1, 0, 0);
+        $this->Ln(15);
     }
 
     function RomawiII($tiba1, $tgltiba1, $dari2, $ke2, $tgldari2)
     {
         $this->Cell(7, 5, "II.", 0, 0);
         $this->Cell(30, 5, "Tiba di", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(51, 5, $tiba1, 0, 0);
         $this->Cell(30, 5, "Berangkat dari", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(0, 6, $dari2, 0, 1);
 
         $this->Cell(7, 5, "", 0, 0);
         $this->Cell(30, 5, "Pada Tanggal", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(51, 5, $tgltiba1, 0, 0);
         $this->Cell(30, 5, "Ke", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(0, 6, $ke2, 0, 1);
 
-        $this->Cell(95, 5, "", 0, 0);
+        $this->Cell(91, 5, "", 0, 0);
         $this->Cell(30, 5, "Pada Tanggal", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(0, 6, $tgldari2, 0, 1);
         $this->Ln(15);
 
         $this->Cell(7, 5, "", 0, 0);
-        $this->Cell(88, 5, "(............................................................)", 0, 0);
+        $this->Cell(85, 5, "(............................................................)", 0, 0);
         $this->Cell(0, 5, "(............................................................)", 0, 1);
 
         $this->Cell(7, 5, "", 0, 0);
-        $this->Cell(88, 5, "NIP.", 0, 0);
+        $this->Cell(85, 5, "NIP.", 0, 0);
         $this->Cell(0, 6, "NIP.", 0, 1);
         $this->Ln(5);
     }
@@ -637,32 +677,32 @@ class PDF_MC_Table extends FPDF
     {
         $this->Cell(7, 5, "III.", 0, 0);
         $this->Cell(30, 5, "Tiba di", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(51, 5, $tiba, 0, 0);
         $this->Cell(30, 5, "Berangkat dari", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(0, 6, $dari, 0, 1);
 
         $this->Cell(7, 5, "", 0, 0);
         $this->Cell(30, 5, "Pada Tanggal", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(51, 5, $tgltiba, 0, 0);
         $this->Cell(30, 5, "Ke", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(0, 6, $ke, 0, 1);
 
-        $this->Cell(95, 5, "", 0, 0);
+        $this->Cell(91, 5, "", 0, 0);
         $this->Cell(30, 5, "Pada Tanggal", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(0, 5, $tgldari, 0, 1);
         $this->Ln(15);
 
         $this->Cell(7, 5, "", 0, 0);
-        $this->Cell(88, 5, "(............................................................)", 0, 0);
+        $this->Cell(85, 5, "(............................................................)", 0, 0);
         $this->Cell(0, 6, "(............................................................)", 0, 1);
 
         $this->Cell(7, 5, "", 0, 0);
-        $this->Cell(88, 5, "NIP.", 0, 0);
+        $this->Cell(85, 5, "NIP.", 0, 0);
         $this->Cell(0, 6, "NIP.", 0, 1);
         $this->Ln(5);
     }
@@ -671,49 +711,49 @@ class PDF_MC_Table extends FPDF
     {
         $this->Cell(7, 5, "IV.", 0, 0);
         $this->Cell(30, 5, "Tiba di", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(51, 5, $tiba, 0, 0);
         $this->Cell(30, 5, "Berangkat dari", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(0, 6, $dari, 0, 1);
 
         $this->Cell(7, 5, "", 0, 0);
         $this->Cell(30, 5, "Pada Tanggal", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(51, 5, $tgltiba, 0, 0);
         $this->Cell(30, 5, "Ke", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(0, 6, $ke, 0, 1);
 
-        $this->Cell(95, 5, "", 0, 0);
+        $this->Cell(91, 5, "", 0, 0);
         $this->Cell(30, 5, "Pada Tanggal", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(0, 6, $tgldari, 0, 1);
         $this->Ln(15);
 
         $this->Cell(7, 5, "", 0, 0);
-        $this->Cell(88, 5, "(............................................................)", 0, 0);
+        $this->Cell(85, 5, "(............................................................)", 0, 0);
         $this->Cell(0, 6, "(............................................................)", 0, 1);
 
         $this->Cell(7, 5, "", 0, 0);
-        $this->Cell(88, 5, "NIP.", 0, 0);
+        $this->Cell(85, 5, "NIP.", 0, 0);
         $this->Cell(0, 6, "NIP.", 0, 1);
     }
 
     function RomawiV($tiba, $tgl)
     {
-        $this->Cell(70, 5, "", 0, 0);
+        $this->Cell(1, 5, "", 0, 0);
         $this->Cell(7, 5, "V.", 0, 0);
-        $this->Cell(43, 5, "Tiba kembali di", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(30, 5, "Tiba kembali di", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(0, 6, $tiba, 0, 1);
 
-        $this->Cell(77, 5, "", 0, 0);
-        $this->Cell(43, 5, "Pada tanggal", 0, 0);
-        $this->Cell(7, 5, ":", 0, 0);
+        $this->Cell(8, 5, "", 0, 0);
+        $this->Cell(30, 5, "Pada tanggal", 0, 0);
+        $this->Cell(3, 5, ":", 0, 0);
         $this->Cell(0, 6, $tgl, 0, 1);
 
-        $this->Cell(77, 5, "", 0, 0);
+        $this->Cell(8, 5, "", 0, 0);
         $this->MultiCell(0, 6, "Telah diperiksa, dengan keterangan bahwa perjalanan tersebut diatas benar dilakukan atas perintahnya dan semata-mata untuk kepentingan jabatan dalam waktu yang sesingkat-singkatnya.", 0, 1);
         $this->Ln(5);
     }
@@ -755,22 +795,22 @@ class PDF_MC_Table extends FPDF
         $this->SetFont('Times', '', 12);
         $this->Cell(30, 5, 'Nama', 0, 0);
         $this->Cell(5, 5, ':', 0, 0);
-        $this->Cell(0, 6, $Menetapkan->name, 0, 1);
+        $this->Cell(0, 5, $Menetapkan->name, 0, 1);
 
         $this->SetFont('Times', '', 12);
         $this->Cell(30, 5, 'NIP', 0, 0);
         $this->Cell(5, 5, ':', 0, 0);
-        $this->Cell(0, 6, $Menetapkan->nip, 0, 1);
+        $this->Cell(0, 5, $Menetapkan->nip, 0, 1);
 
         $this->SetFont('Times', '', 12);
         $this->Cell(30, 5, 'Pangkat / Gol', 0, 0);
         $this->Cell(5, 5, ':', 0, 0);
-        $this->Cell(0, 6, $Menetapkan->pangkat." / ".$Menetapkan->golongan, 0, 1);
+        $this->Cell(0, 5, $Menetapkan->pangkat." / ".$Menetapkan->golongan, 0, 1);
 
         $this->SetFont('Times', '', 12);
         $this->Cell(30, 5, 'Jabatan', 0, 0);
         $this->Cell(5, 5, ':', 0, 0);
-        $this->Cell(0, 6, $Menetapkan->jabatan, 0, 1);
+        $this->Cell(0, 5, $Menetapkan->jabatan, 0, 1);
         $this->Ln(5);
     }
 
@@ -936,11 +976,11 @@ class PdfController extends Controller
         $this->fpdf->Kop();
 
         // Judul Surat Perintah Tugas
-        $this->fpdf->SetFont('Times', 'BU', 14);
-        $this->fpdf->Cell(0, 7, "SURAT PERINTAH TUGAS", 0, 1, "C");
-        $this->fpdf->SetFont('Times', '', 14);
-        $this->fpdf->Cell(57, 7, "", 0, 0);
-        $this->fpdf->Cell(0, 7, "Nomor : ".$dataSpt->nomor_surat, 0, 0);
+        $this->fpdf->SetFont('Times', 'BU', 12);
+        $this->fpdf->Cell(0, 5, "SURAT PERINTAH TUGAS", 0, 1, "C");
+        $this->fpdf->SetFont('Times', '', 12);
+        $this->fpdf->Cell(57, 5, "", 0, 0);
+        $this->fpdf->Cell(0, 5, "Nomor : ".$dataSpt->nomor_surat, 0, 0);
         $this->fpdf->Ln(10);
 
         // Dasar
@@ -951,7 +991,7 @@ class PdfController extends Controller
         $this->fpdf->kepala_dinas($id);
 
         // Memerintahkan
-        $this->fpdf->SetFont('Times', 'B', 14);
+        $this->fpdf->SetFont('Times', 'B', 12);
         $this->fpdf->Cell(0, 5, "MEMERINTAHKAN :", 0, 1, "C");
         $this->fpdf->Ln(5);
 
@@ -997,14 +1037,15 @@ class PdfController extends Controller
             $this->fpdf->Cell(85, 5, "", 0, 0);
             $this->fpdf->Cell(0, 5, "Lampiran SPT/SPPD", 0, 1);
             $this->fpdf->Cell(85, 5, "", 0, 0);
-            $this->fpdf->Cell(0, 5, "No.", 0, 1);
+            $this->fpdf->Cell(0, 5, "No.", 0, 0);
             $this->fpdf->Cell(85, 5, "", 0, 0);
-            $this->fpdf->Cell(0, 5, "Tanggal :", 0, 1);
+            $this->fpdf->Cell(0, 5, "Tanggal :", 0, 0);
             $this->fpdf->Ln(10);
 
             $this->fpdf->SetFont('Times', '', 12);
             $this->fpdf->Cell(30, 5, 'Kepada', 0, 0);
-            $this->fpdf->Cell(5, 5, ':', 0, 0);
+            $this->fpdf->Cell(5, 5, ':', 0, 1);
+
 
             for($i=0; $i<= count($listDiperintah)-1; $i++){
                 $number = $i+1;
@@ -1016,17 +1057,17 @@ class PdfController extends Controller
                 $this->fpdf->Cell(40, 5, "", 0, 0);
                 $this->fpdf->Cell(45, 5, 'Pangkat / Gol Ruang', 0, 0);
                 $this->fpdf->Cell(5, 5, ':', 0, 0);
-                $this->fpdf->Cell(0, 5, $listDiperintah[$i]->pangkat." / ".$listDiperintah[$i]->golongan, 0, 1);
+                $this->fpdf->Cell(0, 5, $listDiperintah[$i]->pangkat." / ".$listDiperintah[$i]->golongan, 0, 0);
 
                 $this->fpdf->Cell(40, 5, "", 0, 0);
                 $this->fpdf->Cell(45, 5, 'NIP', 0, 0);
                 $this->fpdf->Cell(5, 5, ':', 0, 0);
-                $this->fpdf->Cell(0, 5, $listDiperintah[$i]->nip, 0, 1);
+                $this->fpdf->Cell(0, 5, $listDiperintah[$i]->nip, 0, 0);
 
                 $this->fpdf->Cell(40, 5, "", 0, 0);
                 $this->fpdf->Cell(45, 5, 'Jabatan', 0, 0);
                 $this->fpdf->Cell(5, 5, ':', 0, 0);
-                $this->fpdf->Cell(0, 5, $listDiperintah[$i]->jabatan, 0, 1);
+                $this->fpdf->Cell(0, 5, $listDiperintah[$i]->jabatan, 0, 0);
                 $this->fpdf->Ln(5);
 
                 if($i != count($listDiperintah)-1)$this->fpdf->Cell(35, 5, "", 0, 0);
@@ -1072,11 +1113,11 @@ class PdfController extends Controller
             }
         }
         function checkParameters($param1, $param2) {
-            if (isset($param) || !empty($param1) && !isset($param2) || empty($param2)) {
+            if (isset($param1) && !isset($param2)) {
                 return "DKP Kab. Boyolali";
-            } else if (!isset($param1) && (!isset($param2) || empty($param2))) {
+            } else if (!isset($param1)&& (!isset($param2))) {
                 return "";
-            } else if (isset($param1) && !empty($param1) && isset($param2) && !empty($param2)) {
+            } else if (isset($param1)&& isset($param2)) {
                 return $param2;
             }
         }
@@ -1112,53 +1153,66 @@ class PdfController extends Controller
         // Halaman Tanda Tangan
         $this->fpdf->AddPage('P', array(210, 330));
 
+        // Garis I
+        $this->fpdf->SetLineWidth(0);
+        $this->fpdf->Line(20, 5, 190, 5);
+        $this->fpdf->Line(20, 310, 20, 5);
+        $this->fpdf->Line(103, 190, 103, 5);
+        $this->fpdf->Line(190, 310, 190, 5);
+
         // Romawi I
-        $this->fpdf->RomawiI("...............................", $dataSppd->tempat_berangkat , $dataSppd->tempat_tujuan_1 , dateIndo($dataSppd->tgl_pergi));
+        $this->fpdf->RomawiI( $dataSppd->tempat_berangkat , $dataSppd->tempat_tujuan_1 , dateIndo($dataSppd->tgl_pergi));
+
+        // Garis II
+        $this->fpdf->SetLineWidth(0);
+        $this->fpdf->Line(20, 40, 190, 40);
 
         // Romawi II
         $this->fpdf->RomawiII( $dataSppd->tempat_tujuan_1 , dateIndo($dataSppd->tgl_tiba_1), $dataSppd->tempat_tujuan_1, checkParameters($dataSppd->tgl_berangkat_dari_1, $dataSppd->tempat_tujuan_2), dateIndo($dataSppd->tgl_berangkat_dari_1));
 
+        // Garis III
+        $this->fpdf->SetLineWidth(0);
+        $this->fpdf->Line(20, 89, 190, 89);
+
         // Romawi III
         $this->fpdf->RomawiIII( $dataSppd->tempat_tujuan_2, dateIndo($dataSppd->tgl_tiba_2), $dataSppd->tempat_tujuan_2, checkParameters($dataSppd->tgl_berangkat_dari_2, $dataSppd->tempat_tujuan_3), dateIndo($dataSppd->tgl_berangkat_dari_2));
 
-        // Romawi IV
-        $this->fpdf->RomawiIV($dataSppd->tempat_tujuan_3, dateIndo($dataSppd->tgl_tiba_3), $dataSppd->tempat_tujuan_3, checkParameters($dataSppd->tgl_berangkat_dari_3, ''), dateIndo($dataSppd->tgl_berangkat_dari_3));
-
-        // Garis
+        // Garis IV
         $this->fpdf->SetLineWidth(0);
-        $this->fpdf->Line(20, 172, 190, 172);
-        $this->fpdf->Ln(10);
+        $this->fpdf->Line(20, 140, 190, 140);
+
+        // Romawi IV
+        $this->fpdf->RomawiIV($dataSppd->tempat_tujuan_3, dateIndo($dataSppd->tgl_tiba_3), $dataSppd->tempat_tujuan_3, checkParameters('sji', ''), dateIndo($dataSppd->tgl_berangkat_dari_3));
+
+        // Garis V
+        $this->fpdf->SetLineWidth(0);
+        $this->fpdf->Line(20, 190, 190, 190);
+        $this->fpdf->Ln(5);
 
         // Romawi V
         $this->fpdf->RomawiV( $dataSppd->tempat_berangkat, dateIndo($dataSppd->tgl_kembali));
 
         // Tanda Tangan
         $this->fpdf->TTD_SPPD($id);
+        $this->fpdf->Ln(10);
 
-        // $this->fpdf->Cell(77, 5, "", 0, 0);
-        // $this->fpdf->MultiCell(0, 5, 'KEPALA DINAS KETAHANAN PANGAN KABUPATEN BOYOLALI', 0, 1);
-        // $this->fpdf->Ln(20);
 
-        // $this->fpdf->Cell(77, 5, '', 0, 0);
-        // $this->fpdf->SetFont('Times', 'BU', 12);
-        // $this->fpdf->Cell(0, 5, 'Ir. Joko Suhartono, M.Si.', 0, 1);
-
-        // $this->fpdf->Cell(77, 5, '', 0, 0);
-        // $this->fpdf->SetFont('Times', '', 12);
-        // $this->fpdf->Cell(0, 5, 'Pembina Utama Muda', 0, 1);
-
-        // $this->fpdf->Cell(77, 5, '', 0, 0);
-        // $this->fpdf->Cell(0, 5, 'NIP. 19650220 199302 1 002', 0, 1);
-        // $this->fpdf->Ln(10);
+        // Garis VI
+        $this->fpdf->SetLineWidth(0);
+        $this->fpdf->Line(20, 270, 190, 270);
 
         // Romawi VI
         $this->fpdf->Cell(7, 5, "VI.", 0, 0);
         $this->fpdf->Cell(0, 5, "CATATAN LAIN LAIN", 0, 1);
         $this->fpdf->Ln(5);
 
-        // Garis
+        // Garis VII
         $this->fpdf->SetLineWidth(0);
-        $this->fpdf->Line(20, 282, 190, 282);
+        $this->fpdf->Line(20, 280, 190, 280);
+
+        // Garis VIII
+        $this->fpdf->SetLineWidth(0);
+        $this->fpdf->Line(20, 310, 190, 310);
 
         // Romawi VII
         $this->fpdf->Cell(7, 5, "VII.", 0, 0);
@@ -1171,103 +1225,97 @@ class PdfController extends Controller
         exit;
     }
 
+    // Laporan SPT
+    public function printLaporanSpt($tgl_awal, $tgl_akhir, $lap_spt)
+    {
+        function dateIndo($date)
+        {
+            $date = date_create($date);
+            return date_format($date, "d-m-Y");
+        }
+        // // Membuat template file PDF dengan FPDF
+        $this->fpdf = new PDF_MC_Table();
+
+        // Header
+        $this->fpdf->AddPage();
+        $this->fpdf->Kop();
+        $this->fpdf->SetFont('Times','B',12);
+        $this->fpdf->Cell(0, 5, "LAPORAN DATA SPT", 0, 1, "C");
+        $this->fpdf->Ln();
+
+        // Tabel
+        $this->fpdf->SetFont('Times','B',10);
+        $this->fpdf->SetFillColor(255, 255, 255);
+        $this->fpdf->Cell(0, 5, "Periode : ".dateIndo($tgl_awal)." s/d ".dateIndo($tgl_akhir), 0, 1, "L");
+        $this->fpdf->SetWidths(array(8, 20, 30, 30, 40, 20, 20, 22));
+        $this->fpdf->SetAligns(array('C', 'C', 'C', 'C', 'C', 'C', 'C', 'C'));
+        $this->fpdf->RowNoSpace(Array('No', 'Tanggal Ditetapkan', 'Nomor Surat', 'Pegawai yang Diperintah', 'Maksud Tugas', 'Tanggal Pergi', 'Tanggal Kembali', 'Tempat'));
+
+        $this->fpdf->setFont('Times','',10);
+        foreach ($lap_spt as $key => $s) {
+            $pegawai = array();
+            for ($i = 0; $i < count($s->diperintah); $i++) {
+                $pegawai[] = $s->diperintah[$i]->name;
+            }
+            $this->fpdf->Row(Array(
+                $key+1,
+                dateIndo($s->tgl_ditetapkan),
+                $s->nomor_surat,
+                ($key+1) .'. '. implode(", ", $pegawai),
+                $s->maksud_tugas,
+                dateIndo($s->tgl_pergi),
+                dateIndo($s->tgl_kembali),
+                $s->tempat,
+            ));
+        }
+
+        // Output Print
+        $this->fpdf->Output('I', 'Laporan Data SPT.pdf');
+        exit;
+    }
+
+    // Laporan SPPD
+    public function printLaporanSppd($tgl_awal, $tgl_akhir, $lap_sppd)
+    {
+        function dateIndo($date)
+        {
+            $date = date_create($date);
+            return date_format($date, "d-m-Y");
+        }
+
+        // Menambahkan teks dan cell pada file PDF
+        $this->fpdf->AddPage();
+        $this->fpdf->Kop();
+        $this->fpdf->SetFont('Times','B',12);
+        $this->fpdf->Cell(0, 5, "LAPORAN DATA SPPD", 0, 1, "C");
+        $this->fpdf->Ln();
+
+        // Tabel
+        $this->fpdf->SetFont('Times','B',10);
+        $this->fpdf->Cell(0, 5, "Periode : ".dateIndo($tgl_awal)." s/d ".dateIndo($tgl_akhir), 0, 1, "L");
+        $this->fpdf->SetWidths(array(8, 22, 30, 30, 40, 20, 20, 20));
+        $this->fpdf->SetAligns(array('C', 'C', 'C', 'C', 'C', 'C', 'C', 'C'));
+        $this->fpdf->RowNoSpace(Array('No', 'Tanggal Dikeluarkan', 'Nomor Surat', 'Pegawai yang Diperintah', 'Maksud Perjalanan Dinas', 'Tanggal Pergi', 'Tanggal Kembali', 'Tempat'));
+
+        $this->fpdf->setFont('Times','',10);
+        foreach ($lap_sppd as $key => $s) {
+        $this->fpdf->Row(Array(
+            $key+1,
+            dateIndo($s->tgl_keluar),
+            $s->nomor_surat,
+            $s->pejabat_diperintahh->name,
+            $s->maksud_perintah,
+            dateIndo($s->tgl_pergi),
+            dateIndo($s->tgl_kembali),
+            $s->tempat_tujuan,
+        ));
+        }
 
 
 
 
-    // Daftar Penerimaan Uang Perjalanan Dinas
-    // public function pdf3($id)
-    // {
-    //     $dataBiaya = Biaya::find($id);
-    //     // dd($dataBiaya);
-
-    //     function ubahTglkeIndo($string){
-    //         $bulanIndo = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September' , 'Oktober', 'November', 'Desember'];
-
-    //         $tanggal = explode("-", $string)[2];
-    //         $bulan = explode("-", $string)[1];
-    //         $tahun = explode("-", $string)[0];
-
-
-    //         if($tanggal[0] == 0){
-    //             $tgl =  $tanggal[1];
-    //         }else{
-    //             $tgl = $tanggal;
-    //         }
-
-    //         return $tgl . " " . $bulanIndo[abs($bulan)] . " " . $tahun;
-    //     }
-    //     $this->fpdf = new PDF_MC_Table();
-    //     $this->fpdf->SetMargins(10, 7.5, 10);
-    //     $this->fpdf->AddPage("L", array(330, 210));
-
-    //     // Judul, Kegiatan, Lokasi
-    //     $this->fpdf->Judul($dataBiaya->kegiatan, $dataBiaya->lokasi);
-
-    //     // Kegiatan, Kode Rekening, Unit Kerja
-    //     $this->fpdf->Kegiatan($dataBiaya->kegiatan, $dataBiaya->rekening, "Dinas Komunikasi dan Informatika Kabupaten Karanganyar");
-
-    //     // Tabel Header
-    //     $this->fpdf->SetWidths(Array(10, 62, 90, 30, 25, 37, 30, 26)); // Total width 310
-    //     $this->fpdf->SetAligns(Array("C", "C", "C", "C", "C", "C", "C", "C"));
-    //     $this->fpdf->SetFont('Times', 'B', 12);
-    //     $this->fpdf->Row(Array('No.', 'Nama / NIP', 'Jabatan / Pangkat / Gol. Eselon', 'Uang Harian', 'Uang Transport', 'Biaya Transport', 'Penerimaan', 'Tanda Tangan'));
-
-    //     // Tabel Body
-    //     $this->fpdf->SetAligns(Array("L", "L", "L", "L", "L", "L", "L", "L"));
-    //     $this->fpdf->SetFont('Times', '', 12);
-    //     $this->fpdf->Row(Array('1', 'Hartono, S.Sos., M.M. 19691015 199003 1 007', 'Kepala Bidang Tata kelola Informatika Dinas Kominfo Kab. Karanganyar / Pembina / IV a', 'Uang Harian', 'Rp80.000', '8 Lt x Rp 12.500 = Rp100.000', 'Rp180.000', ''));
-    //     $this->fpdf->Row(Array('2', 'Suparno 19731103 199803 1 012', 'Analis Sistem Informasi dan Diseminasi Hukum Pada Seksi Persandian dan Keamanan Jaringan dinas Kominfo Kab. Karanganyar / Pengatur Tingkat I / II d', 'Uang Harian', 'Rp60.000', '', 'Rp60.000', ''));
-    //     $this->fpdf->Row(Array('2', 'Yahya Fathoni Amri, S.Kom.', 'Network Analyst Dinas Kominfo Kab. Karanganyar / -', '', 'Rp50.000', '', 'Rp50.000', ''));
-
-    //     // Tabel Jumlah
-    //     // $this->fpdf->Row(Array('Jumlah', '', 'Rp190.000', 'Rp100.000', 'Rp290.000'));
-    //     $this->fpdf->Cell(162, 7, "Jumlah", 1, 0, "C");
-    //     $this->fpdf->Cell(30, 7, "", 1, 0);
-    //     $this->fpdf->Cell(25, 7, "Rp190.000", 1, 0);
-    //     $this->fpdf->Cell(37, 7, "Rp100.000", 1, 0);
-    //     $this->fpdf->Cell(30, 7, "Rp290.000", 1, 0);
-    //     $this->fpdf->Cell(0, 7, "", 1, 1);
-
-    //     $this->fpdf->Ln(5);
-
-    //     // Lunas dibayar
-    //     $this->fpdf->Cell(230, 5, "", 0, 0);
-    //     $this->fpdf->Cell(60, 5, "Lunas dibayar, ".ubahTglkeIndo($dataBiaya->hari_tgl), 0, 0);
-    //     $this->fpdf->Cell(10, 5, "", 0, 1);
-    //     $this->fpdf->Cell(0, 5, "Mengetahui / Setuju Dibayar", 0, 1);
-
-    //     // Tanda Tangan
-    //     $this->fpdf->Cell(10, 5, "Plt.", 0, 0);
-    //     $this->fpdf->Cell(120, 5, "KEPALA DINAS KOMUNIKASI DAN INFORMATIKA", 0, 0);
-    //     $this->fpdf->Cell(0, 5, "Mengetahui :", 0, 1);
-
-    //     $this->fpdf->Cell(10, 5, "", 0, 0);
-    //     $this->fpdf->Cell(120, 5, "ASISTEN ADMINISTRASI UMUM SEKRETARIS DAERAH", 0, 0);
-    //     $this->fpdf->Cell(100, 5, "Pejabat Pelaksana Teknis Kegiatan", 0, 0);
-    //     $this->fpdf->Cell(0, 5, "Bendahara Pengeluaran", 0, 1);
-
-
-    //     $this->fpdf->Cell(10, 5, "", 0, 0);
-    //     $this->fpdf->Cell(120, 5, "Selaku Pengguna Anggaran", 0, 0);
-    //     $this->fpdf->Cell(100, 5, "Bidang Tata Kelola Informatika", 0, 0);
-    //     $this->fpdf->Cell(0, 5, "Dinas Komunikasi dan Informatika", 0, 1);
-    //     $this->fpdf->Ln(20);
-
-    //     $this->fpdf->Cell(10, 5, "", 0, 0);
-    //     $this->fpdf->SetFont('Times', 'U', 12);
-    //     $this->fpdf->Cell(120, 5, "Drs. SUJARNO, M.Si.", 0, 0);
-    //     $this->fpdf->Cell(100, 5, "Hartono, S.Sos., M.M.", 0, 0);
-    //     $this->fpdf->Cell(0, 5, "ENDANG WERDININGSIH, S.Sos.", 0, 1);
-
-    //     $this->fpdf->Cell(10, 5, "", 0, 0);
-    //     $this->fpdf->SetFont('Times', '', 12);
-    //     $this->fpdf->Cell(120, 5, "NIP.19630107 199003 1 004 ", 0, 0);
-    //     $this->fpdf->Cell(100, 5, "NIP. 19691015 199003 1 007", 0, 0);
-    //     $this->fpdf->Cell(0, 5, "NIP. 19711210 199403 2 002", 0, 1);
-
-
-    //     $this->fpdf->Output('I', 'Daftar Uang.pdf');
-
-    // }
+        $this->fpdf->Output('I', 'Laporan Data SPPD.pdf');
+        exit;
+    }
 }
+

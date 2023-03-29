@@ -18,4 +18,5 @@ class DashboardController extends Controller
         $biaya = Biaya::count();
         return view('pages.dashboard', ['pegawai' => $pegawai, 'spt' => $spt, 'sppd' => $sppd, 'biaya' => $biaya]);
     }
+
 }

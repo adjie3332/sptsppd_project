@@ -33,13 +33,13 @@
                             <div class="row">
                                 <div class="form-group">
                                     <label for="nomor_surat">Nomor Surat</label>
-                                    <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" placeholder="Tulis Nomor Surat">
+                                    <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" placeholder="Tulis Nomor Surat" value="094 /  / 4.7 / 2023">
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="pejabat_pemerintah">Pejabat Pemberi Perintah</label>
                                         <select class="js-example-basic-multiple w-100 form-control" name="pejabat_pemerintah" id="pejabat_pemerintah">
-                                            <option value="">Pilih Salah Satu</option>
+                                            <option value="1">Pilih Salah Satu</option>
                                             @foreach ($sppd as $s)
                                                 <option value="{{ $s->id }}">{{ $s->name }}</option>
                                             @endforeach
@@ -59,7 +59,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="transportasi">Transportasi</label>
-                                        <input type="text" class="form-control" id="transportasi" name="transportasi" placeholder="Tulis Transportasi yang Digunakan">
+                                        <select class="js-example-basic-multiple w-100" id="transportasi" name="transportasi">
+                                            <option value="">Pilih Transportasi</option>
+                                            <option value="Kendaraan Umum">Kendaraan Umum</option>
+                                            <option value="Kendaraan Dinas">Kendaraan Dinas</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="tgl_keluar">Tanggal Dikeluarkan</label>
@@ -86,11 +90,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="instansi">Instansi</label>
-                                        <input type="text" class="form-control" id="instansi" name="instansi" placeholder="Tulis Instansi">
+                                        <input type="text" class="form-control" id="instansi" name="instansi" placeholder="Tulis Instansi" value="Dinas Ketahanan Pangan Kabupaten Boyolali">
                                     </div>
                                     <div class="form-group">
                                         <label for="mata_anggaran">Mata Anggaran</label>
-                                        <input type="text" class="form-control" id="mata_anggaran" name="mata_anggaran" placeholder="Tulis Mata Anggaran">
+                                        <input type="text" class="form-control" id="mata_anggaran" name="mata_anggaran" placeholder="Tulis Mata Anggaran" value="5. 1. 02. 04. 01. 0001">
                                     </div>
                                     <div class="form-group">
                                         <label for="keterangan">Keterangan</label>
@@ -136,9 +140,9 @@
     const addTempatButton = document.querySelector('#add-tempat-button');
     const removeTempatButton = document.querySelector('#remove-tempat-button');
 
-    const template = (position) =>
+    const template = (position, romawi) =>
         `<div class="form-group">
-            <label> Romawi ${position}</label>
+            <label> Romawi ${romawi}</label>
             <div class="row">
                 <div class="col">
                     <label for="tempat_tujuan_${position}">Tujuan ${position}</label>
@@ -155,9 +159,10 @@
         </div>`;
 
     let position = 1;
+    let romawi = 2;
 
     addTempatButton.addEventListener('click', () => {
-    if (position > 3) {
+    if (position > 3 && romawi > 4 ) {
         Swal.fire({
         position: 'top-end',
         icon: 'error',
@@ -168,15 +173,17 @@
         return;
     }
 
-    wrapperFields.insertAdjacentHTML('beforeend', template(position));
+    wrapperFields.insertAdjacentHTML('beforeend', template(position, romawi));
     position++;
+    romawi++
     });
 
     removeTempatButton.addEventListener('click', () => {
-    if (position > 1) {
+    if (position > 1 && romawi > 2) {
         const lastTempat = wrapperFields.lastElementChild;
         lastTempat.remove();
         position--;
+        romawi--;
     }
     });
     form.addEventListener('submit', (event) => {

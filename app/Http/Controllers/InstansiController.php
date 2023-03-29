@@ -16,7 +16,8 @@ class InstansiController extends Controller
     public function index()
     {
         $instansi = Instansi::latest()->paginate(10);
-        return view('pages.instansi', compact('instansi'))
+        $pegawai = Pegawai::all();
+        return view('pages.instansi', compact('instansi', 'pegawai'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -27,7 +28,7 @@ class InstansiController extends Controller
      */
     public function create()
     {
-        $instansi = Pegawai::with(['kepala_dinass', 'pejabat_pelaksanaa', 'bendaharaa'])->get();
+        $instansi = Pegawai::with(['kepala_dinass', 'sekretaris', 'kabid_KKP', 'kabid_KDCP'])->get();
         // dd($instansi);
         return view('pages.instansi.create', ['instansi' => $instansi]);
     }
@@ -49,8 +50,9 @@ class InstansiController extends Controller
             'email' => 'required',
             'kodepos' => 'required',
             'kepala_dinas' => 'required',
-            'pejabat_pelaksana' => 'required',
-            'bendahara' => 'required',
+            'sekretaris' => 'required',
+            'kabid_KKP' => 'required',
+            'kabid_KDCP' => 'required',
         ]);
         Instansi::create($request->all());
 
@@ -64,9 +66,9 @@ class InstansiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Instansi $instansi)
+    public function show(Instansi $instansi )
     {
-        return view('pages.instansi.show', compact('instansi'));
+        return view('pages.instansi.show', compact('instansi', 'pegawai'));
     }
 
     /**
@@ -78,7 +80,7 @@ class InstansiController extends Controller
     public function edit($id)
     {
         $instansi = Instansi::findOrFail($id);
-        $pegawai = Pegawai::with(['kepala_dinass', 'pejabat_pelaksanaa', 'bendaharaa'])->get();
+        $pegawai = Pegawai::with(['kepala_dinass', 'sekretaris', 'kabid_KKP', 'kabid_KDCP'])->get();
         return view('pages.instansi.edit', ['instansi' => $instansi, 'pegawai' => $pegawai]);
     }
 
@@ -100,8 +102,9 @@ class InstansiController extends Controller
             'email' => 'required',
             'kodepos' => 'required',
             'kepala_dinas' => 'required',
-            'pejabat_pelaksana' => 'required',
-            'bendahara' => 'required',
+            'sekretaris' => 'required',
+            'kabid_KKP' => 'required',
+            'kabid_KDCP' => 'required',
         ]);
         $instansi->update($request->all());
 

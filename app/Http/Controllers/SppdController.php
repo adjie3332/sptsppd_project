@@ -20,6 +20,19 @@ class SppdController extends Controller
         return view('pages.sppd', compact('sppd'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function report()
+    {
+        $sppd = Sppd::all();
+        return view('pages.report.sppd', compact('sppd'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -98,7 +111,7 @@ class SppdController extends Controller
             'tgl_berangkat_dari_3' => $request->tgl_berangkat_dari_3,
         ]);
 
-        $sppd->pengikut()->sync($request->pengikut);
+        // $sppd->pengikut()->sync($request->pengikut);
 
         return redirect()->route('sppd.index')
             ->with('toast_success', 'Data SPPD Berhasil Ditambahkan');
@@ -135,7 +148,7 @@ class SppdController extends Controller
      * @param  \App\Models\Sppd  $sppd
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sppd $sppd)
+    public function update(Request $request, $id)
     {
         // $request->validate([
         //     'maksud_perintah' => 'required',
@@ -149,6 +162,7 @@ class SppdController extends Controller
         //     'instansi' => 'required',
         //     'mata_anggaran' => 'required',
         // ]);
+        $sppd = Sppd::findorFail($id);
         $sppd->pengikut()->sync($request->pengikut);
         $sppd->update($request->all());
 

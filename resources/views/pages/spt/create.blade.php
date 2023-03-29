@@ -39,7 +39,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="nomor_surat">Nomor Surat</label>
-                                        <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" placeholder="Tulis Nomor Surat"></input>
+                                        <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" placeholder="Tulis Nomor Surat" value="094 /  / 4.7 / 2023"></input>
                                     </div>
                                     <div class="form-group">
                                         <label for="tgl_pergi">Tanggal Kepergian</label>
@@ -102,7 +102,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="tempat_ditetapkan">Tempat Ditetapkan</label>
-                                        <input type="text" class="form-control" id="tempat_ditetapkan" name="tempat_ditetapkan" placeholder="Tulis Tempat Ditetapkan">
+                                        <input type="text" class="form-control" id="tempat_ditetapkan" name="tempat_ditetapkan" value="Boyolali" placeholder="Tulis Tempat Ditetapkan">
                                     </div>
                                 </div>
                                 <div class="col">
