@@ -44,7 +44,7 @@
                                 <td>{{ $s->nomor_surat }}</td>
                                 <td>
                                     @foreach ($s->diperintah()->get() as $diperintah)
-                                        <div>{{ $loop->iteration }}. {{ $diperintah->name }} - {{ $diperintah->nip }}</div>
+                                        <div>{{ $loop->iteration }}. {{ $diperintah->name }}</div>
                                     @endforeach
                                 </td>
                                 <td>{{ $s->maksud_tugas }}</td>

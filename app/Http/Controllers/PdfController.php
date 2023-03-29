@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use App\Http\Controllers\SppdController;
 use App\Http\Controllers\SptController;
+use App\Http\Controllers\LaporanController;
 use Attribute;
 use League\CommonMark\Extension\Attributes\Node\Attributes;
 
@@ -92,6 +93,34 @@ class PDF_MC_Table extends FPDF
             $text = $text1 . "\n" . $text2;
             $this->MultiCell($w, 5, $text, 0, $a);
             $this->SetXY($x + $w, $y);
+        }
+        //Go to the next line
+        $this->Ln($h);
+    }
+
+    function RowNoSpace($data)
+    {
+        //Calculate the height of the row
+        $nb=0;
+        for($i=0;$i<count($data);$i++)
+            $nb=max($nb,$this->NbLines($this->widths[$i],$data[$i]));
+        $h=(5*$nb);
+        //Issue a page break first if needed
+        $this->CheckPageBreak($h);
+        //Draw the cells of the row
+        for($i=0;$i<count($data);$i++)
+        {
+            $w=$this->widths[$i];
+            $a=isset($this->aligns[$i]) ? $this->aligns[$i] : 'L';
+            //Save the current position
+            $x=$this->GetX();
+            $y=$this->GetY();
+            //Draw the border
+            $this->Rect($x,$y,$w,$h);
+            //Print the text
+            $this->MultiCell($w,5,$data[$i],0,$a);
+            //Put the position to the right of the cell
+            $this->SetXY($x+$w,$y);
         }
         //Go to the next line
         $this->Ln($h);
@@ -1195,4 +1224,98 @@ class PdfController extends Controller
 
         exit;
     }
+
+    // Laporan SPT
+    public function printLaporanSpt($tgl_awal, $tgl_akhir, $lap_spt)
+    {
+        function dateIndo($date)
+        {
+            $date = date_create($date);
+            return date_format($date, "d-m-Y");
+        }
+        // // Membuat template file PDF dengan FPDF
+        $this->fpdf = new PDF_MC_Table();
+
+        // Header
+        $this->fpdf->AddPage();
+        $this->fpdf->Kop();
+        $this->fpdf->SetFont('Times','B',12);
+        $this->fpdf->Cell(0, 5, "LAPORAN DATA SPT", 0, 1, "C");
+        $this->fpdf->Ln();
+
+        // Tabel
+        $this->fpdf->SetFont('Times','B',10);
+        $this->fpdf->SetFillColor(255, 255, 255);
+        $this->fpdf->Cell(0, 5, "Periode : ".dateIndo($tgl_awal)." s/d ".dateIndo($tgl_akhir), 0, 1, "L");
+        $this->fpdf->SetWidths(array(8, 20, 30, 30, 40, 20, 20, 22));
+        $this->fpdf->SetAligns(array('C', 'C', 'C', 'C', 'C', 'C', 'C', 'C'));
+        $this->fpdf->RowNoSpace(Array('No', 'Tanggal Ditetapkan', 'Nomor Surat', 'Pegawai yang Diperintah', 'Maksud Tugas', 'Tanggal Pergi', 'Tanggal Kembali', 'Tempat'));
+
+        $this->fpdf->setFont('Times','',10);
+        foreach ($lap_spt as $key => $s) {
+            $pegawai = array();
+            for ($i = 0; $i < count($s->diperintah); $i++) {
+                $pegawai[] = $s->diperintah[$i]->name;
+            }
+            $this->fpdf->Row(Array(
+                $key+1,
+                dateIndo($s->tgl_ditetapkan),
+                $s->nomor_surat,
+                ($key+1) .'. '. implode(", ", $pegawai),
+                $s->maksud_tugas,
+                dateIndo($s->tgl_pergi),
+                dateIndo($s->tgl_kembali),
+                $s->tempat,
+            ));
+        }
+
+        // Output Print
+        $this->fpdf->Output('I', 'Laporan Data SPT.pdf');
+        exit;
+    }
+
+    // Laporan SPPD
+    public function printLaporanSppd($tgl_awal, $tgl_akhir, $lap_sppd)
+    {
+        function dateIndo($date)
+        {
+            $date = date_create($date);
+            return date_format($date, "d-m-Y");
+        }
+
+        // Menambahkan teks dan cell pada file PDF
+        $this->fpdf->AddPage();
+        $this->fpdf->Kop();
+        $this->fpdf->SetFont('Times','B',12);
+        $this->fpdf->Cell(0, 5, "LAPORAN DATA SPPD", 0, 1, "C");
+        $this->fpdf->Ln();
+
+        // Tabel
+        $this->fpdf->SetFont('Times','B',10);
+        $this->fpdf->Cell(0, 5, "Periode : ".dateIndo($tgl_awal)." s/d ".dateIndo($tgl_akhir), 0, 1, "L");
+        $this->fpdf->SetWidths(array(8, 22, 30, 30, 40, 20, 20, 20));
+        $this->fpdf->SetAligns(array('C', 'C', 'C', 'C', 'C', 'C', 'C', 'C'));
+        $this->fpdf->RowNoSpace(Array('No', 'Tanggal Dikeluarkan', 'Nomor Surat', 'Pegawai yang Diperintah', 'Maksud Perjalanan Dinas', 'Tanggal Pergi', 'Tanggal Kembali', 'Tempat'));
+
+        $this->fpdf->setFont('Times','',10);
+        foreach ($lap_sppd as $key => $s) {
+        $this->fpdf->Row(Array(
+            $key+1,
+            dateIndo($s->tgl_keluar),
+            $s->nomor_surat,
+            $s->pejabat_diperintahh->name,
+            $s->maksud_perintah,
+            dateIndo($s->tgl_pergi),
+            dateIndo($s->tgl_kembali),
+            $s->tempat_tujuan,
+        ));
+        }
+
+
+
+
+        $this->fpdf->Output('I', 'Laporan Data SPPD.pdf');
+        exit;
+    }
 }
+

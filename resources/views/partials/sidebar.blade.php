@@ -15,32 +15,26 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('spt.index') }}">
-                <i class="mdi mdi mdi-file-multiple menu-icon"></i>
+                <i class="mdi mdi-file-multiple menu-icon"></i>
                 <span class="menu-title">Data SPT</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('sppd.index') }}">
-                <i class="mdi mdi mdi-file-multiple menu-icon"></i>
+                <i class="mdi mdi-file-multiple menu-icon"></i>
                 <span class="menu-title">Data SPPD</span>
             </a>
         </li>
-        <!-- <li class="nav-item">
-            <a class="nav-link" href="{{ route('biaya.index') }}">
-                <i class="mdi mdi mdi-file-multiple menu-icon"></i>
-                <span class="menu-title">Data Penerimaan Uang</span>
-            </a>
-        </li> -->
         <li class="nav-item nav-category">Laporan Data</li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('laporan.lap_spt') }}">
-                <i class="mdi mdi mdi-folder-multiple menu-icon"></i>
+                <i class="mdi mdi-folder-multiple menu-icon"></i>
                 <span class="menu-title">SPT</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('laporan.lap_sppd') }}">
-                <i class="mdi mdi mdi-folder-multiple menu-icon"></i>
+                <i class="mdi mdi-folder-multiple menu-icon"></i>
                 <span class="menu-title">SPPD</span>
             </a>
         </li>

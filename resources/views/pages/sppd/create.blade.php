@@ -39,7 +39,7 @@
                                     <div class="form-group">
                                         <label for="pejabat_pemerintah">Pejabat Pemberi Perintah</label>
                                         <select class="js-example-basic-multiple w-100 form-control" name="pejabat_pemerintah" id="pejabat_pemerintah">
-                                            <option value="">Pilih Salah Satu</option>
+                                            <option value="1">Pilih Salah Satu</option>
                                             @foreach ($sppd as $s)
                                                 <option value="{{ $s->id }}">{{ $s->name }}</option>
                                             @endforeach
@@ -59,7 +59,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="transportasi">Transportasi</label>
-                                        <input type="text" class="form-control" id="transportasi" name="transportasi" placeholder="Tulis Transportasi yang Digunakan">
+                                        <select class="js-example-basic-multiple w-100" id="transportasi" name="transportasi">
+                                            <option value="">Pilih Transportasi</option>
+                                            <option value="Kendaraan Umum">Kendaraan Umum</option>
+                                            <option value="Kendaraan Dinas">Kendaraan Dinas</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="tgl_keluar">Tanggal Dikeluarkan</label>
@@ -86,11 +90,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="instansi">Instansi</label>
-                                        <input type="text" class="form-control" id="instansi" name="instansi" placeholder="Tulis Instansi">
+                                        <input type="text" class="form-control" id="instansi" name="instansi" placeholder="Tulis Instansi" value="Dinas Ketahanan Pangan Kabupaten Boyolali">
                                     </div>
                                     <div class="form-group">
                                         <label for="mata_anggaran">Mata Anggaran</label>
-                                        <input type="text" class="form-control" id="mata_anggaran" name="mata_anggaran" placeholder="Tulis Mata Anggaran">
+                                        <input type="text" class="form-control" id="mata_anggaran" name="mata_anggaran" placeholder="Tulis Mata Anggaran" value="5. 1. 02. 04. 01. 0001">
                                     </div>
                                     <div class="form-group">
                                         <label for="keterangan">Keterangan</label>

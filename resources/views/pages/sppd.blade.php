@@ -13,7 +13,7 @@
                     <div>
                         <a href="{{ route('sppd.create') }}">
                             <button type="button" class="btn btn-success btn-md">
-                                <i class="mdi mdi-plus"></i>
+                                <i class="mdi mdi-plus-box"></i>
                                 Tambah Data
                             </button>
                         </a>

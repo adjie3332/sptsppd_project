@@ -18,6 +18,7 @@
                     @else
                         <a href="{{ route('instansi.edit', $i->id) }}" id="btn-edit-instansi" data-id="{{ $i->id }}">
                             <button type="button" class="btn btn-success btn-md">
+                            <i class="mdi mdi-update"></i>
                                 Ubah Data
                             </button>
                         </a>

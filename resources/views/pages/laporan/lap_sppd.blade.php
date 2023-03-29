@@ -15,7 +15,7 @@
                                 <i class="mdi mdi-filter"></i>
                                 Filter Data
                             </button>
-                            <a type="button" class="btn btn-primary btn-md" href="">
+                            <a href="{{ route('laporan.lap_sppd', ['tgl_awal' => request()->input('tgl_awal'), 'tgl_akhir' => request()->input('tgl_akhir'), 'print' => true]) }}" target="_blank" class="btn btn-primary btn-md">
                                 <i class="mdi mdi-printer"></i>
                                 Print
                             </a>
@@ -59,7 +59,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{ route('laporan.lap_spt') }}" method="get">
+                                <form action="{{ route('laporan.lap_sppd') }}" method="get">
                                     <div class="form-group">
                                         <label for="tgl_awal">Tanggal awal</label>
                                         <input type="date" name="tgl_awal" id="tgl_awal" class="form-control">

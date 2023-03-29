@@ -66,8 +66,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="transportasi">Transportasi</label>
-                                        <input value="{{ $sppd->transportasi }}" type="text" class="form-control" id="transportasi" name="transportasi"
-                                            placeholder="Tulis Transportasi yang Digunakan">
+                                        <select class="js-example-basic-multiple w-100" id="transportasi" name="transportasi">
+                                            <option value="{{ $sppd->transportasi }}">Pilih Transportasi</option>
+                                            <option value="Kendaraan Umum">Kendaraan Umum</option>
+                                            <option value="Kendaraan Dinas">Kendaraan Dinas</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="tgl_keluar">Tanggal Dikeluarkan</label>

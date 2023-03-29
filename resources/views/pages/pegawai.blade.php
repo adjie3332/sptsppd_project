@@ -17,6 +17,7 @@
                     @else
                         <a href="{{ route('pegawai.create') }}">
                             <button type="button" class="btn btn-success btn-md">
+                            <i class="mdi mdi-plus-box"></i>
                                 Tambah Data
                             </button>
                         </a>

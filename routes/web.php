@@ -54,8 +54,8 @@ Route::resource('biaya', BiayaController::class)->middleware('auth');
 Route::resource('instansi', InstansiController::class)->middleware('auth');
 
 // Laporan
-Route::get('/laporan/spt', [LaporanController::class, 'lap_spt'])->name('laporan.lap_spt');
-Route::get('/laporan/sppd', [LaporanController::class, 'lap_sppd'])->name('laporan.lap_sppd');
+Route::get('/laporan/Spt', [LaporanController::class, 'lap_spt'])->name('laporan.lap_spt');
+Route::get('/laporan/Sppd', [LaporanController::class, 'lap_sppd'])->name('laporan.lap_sppd');
 
 
 // dashboard
