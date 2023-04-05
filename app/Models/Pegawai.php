@@ -20,7 +20,6 @@ class Pegawai extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
 
-
     public function pemerintahpd()
     {
         return $this->hasMany(Sppd::class, 'pejabat_pemerintah');

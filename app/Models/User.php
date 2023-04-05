@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Spt;
+use App\Models\Pegawai;
 
 class User extends Authenticatable
 {
@@ -41,4 +43,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function spt()
+    {
+        return $this->hasMany(Spt::class);
+    }
+
+    public function pegawai()
+    {
+        return $this->hasOne(Pegawai::class);
+    }
 }

@@ -11,6 +11,14 @@
                 @guest()
                 @else
                     <div>
+                        <form action="{{ route('laporan.lap_sppd') }}" method="GET" class="d-flex">
+                            <input type="text" name="search" placeholder="Cari data..." class="form-control me-2">
+                            <button type="submit" class="btn btn-primary">Cari</button>
+                        </form><br>
+                            <a href="{{ route('laporan.lap_sppd') }}" class="btn btn-warning btn-md">
+                                <i class="mdi mdi-refresh"></i>
+                                Refresh
+                            </a>
                             <button type="button" class="btn btn-success btn-md" data-bs-toggle=modal data-bs-target=#modalFilter >
                                 <i class="mdi mdi-filter"></i>
                                 Filter Data
@@ -34,6 +42,7 @@
                             <th rowspan="2">Tempat Tujuan</th>
                             <th rowspan="2">Tgl. Pergi</th>
                             <th rowspan="2">Tgl. Kembali</th>
+                            <th rowspan="2">Pembuat Surat</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -47,6 +56,13 @@
                                     <td>{{ $s->tempat_tujuan }}</td>
                                     <td>{{ $s->tgl_pergi }}</td>
                                     <td>{{ $s->tgl_kembali }}</td>
+                                    <td>
+                                        @if ($s->user_id)
+                                        <i class="mdi mdi-account-edit"></i>{{ $s->user->name }}
+                                        @else
+                                            User tidak ditemukan
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -103,6 +103,7 @@
                                     <div class="form-group">
                                         <label for="tempat_ditetapkan">Tempat Ditetapkan</label>
                                         <input type="text" class="form-control" id="tempat_ditetapkan" name="tempat_ditetapkan" value="Boyolali" placeholder="Tulis Tempat Ditetapkan">
+                                        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                                     </div>
                                 </div>
                                 <div class="col">

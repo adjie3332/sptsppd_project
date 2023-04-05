@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
+use App\Models\Instansi;
 use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
@@ -111,8 +112,18 @@ class PegawaiController extends Controller
     // }
     public function destroy($id)
     {
-        Pegawai::find($id)->delete();
-        return redirect()->route('pegawai.index')
-            ->with('toast_success', 'Data Pegawai Berhasil Dihapus');
+        $pegawai = Pegawai::find($id);
+        $isKabidKDCP = Instansi::where('kabid_KDCP', $id)->exists();
+        $isKepala = Instansi::where('kepala_dinas', $id)->exists();
+        $isSekretaris = Instansi::where('sekretaris', $id)->exists();
+        $isKabidKKP = Instansi::where('kabid_KKP', $id)->exists();
+
+        if ($isKabidKDCP || $isKepala || $isSekretaris || $isKabidKKP) {
+            return redirect()->back()->with('toast_error', 'Pegawai tidak dapat dihapus karena merupakan Petinggi Instansi.');
+        }
+
+        $pegawai->delete();
+
+        return redirect()->route('pegawai.index')->with('toast_success', 'Data Pegawai berhasil dihapus.');
     }
 }

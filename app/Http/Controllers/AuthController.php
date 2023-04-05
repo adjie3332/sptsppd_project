@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Gate;
+
 
 class AuthController extends Controller
 {
+
     /**
      * Write code on Method
      *
@@ -39,7 +44,7 @@ class AuthController extends Controller
     public function postLogin(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
 
@@ -49,7 +54,12 @@ class AuthController extends Controller
                 ->withSuccess('You have Successfully loggedin');
         }
 
-        return redirect("login")->withSuccess('Oppes! You have entered invalid credentials');
+        // // Peringatan dengan menggunakan variabel session
+        // session()->flash('error', 'Invalid credentials');
+        // return redirect()->back();
+
+        // Peringatan dengan menggunakan method withError()
+        return redirect()->back()->withErrors(['email' => 'Invalid email or password']);
     }
 
     /**
@@ -92,12 +102,28 @@ class AuthController extends Controller
      */
     public function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password'])
         ]);
+
+        event(new Registered($user)); // tambahkan kode ini untuk mengirimkan email verifikasi
+
+        return $user;
     }
+    public function login(Request $request)
+    {
+        // Proses login
+        // ...
+
+        // Simpan informasi pengguna ke dalam sesi baru
+        session(['user' => Auth::user()]);
+
+        // Redirect ke halaman utama
+        return redirect('/');
+    }
+
 
     /**
      * Write code on Method

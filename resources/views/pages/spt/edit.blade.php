@@ -65,6 +65,7 @@
                                 <div class="form-group">
                                     <label for="tempat">Tempat</label>
                                     <input value="{{ $spt->tempat }}" type="text" class="form-control" id="tempat" name="tempat" placeholder="Tulis Tempat">
+                                    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                                 </div>
                                 <div>
                                     <div class="d-sm-flex justify-content-between align-items-center">

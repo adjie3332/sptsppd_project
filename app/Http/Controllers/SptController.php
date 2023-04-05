@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
 use App\Models\Spt;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SptController extends Controller
 {
@@ -19,6 +21,7 @@ class SptController extends Controller
         return view('pages.spt', compact('spt'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -39,7 +42,10 @@ class SptController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-{
+    {
+    // $user = Auth::user();
+    // $request->merge(['users' => $user->id]);
+
     $request->validate([
         'nomor_surat' => 'nullable',
         'dasar_perintah' => 'nullable',
@@ -51,8 +57,10 @@ class SptController extends Controller
         'tempat_ditetapkan' => 'required',
         'tgl_ditetapkan' => 'required',
         'yang_menetapkan' => 'required',
+        'user_id' => 'required',
     ]);
 
+    // dd($request->all());
     $nama_diperintah = $request->diperintah;
     $tgl_pergi = $request->tgl_pergi;
     $tgl_kembali = $request->tgl_kembali;
@@ -88,12 +96,13 @@ class SptController extends Controller
         'tempat_ditetapkan' => $request->tempat_ditetapkan,
         'tgl_ditetapkan' => $request->tgl_ditetapkan,
         'yang_menetapkan' => $request->yang_menetapkan,
+        'user_id' => $request->user_id,
     ]);
     $spt->diperintah()->sync($request->diperintah);
 
     return redirect()->route('spt.index')
         ->with('toast_success', 'Data SPT Berhasil Ditambahkan');
-}
+    }
 
     /**
      * Display the specified resource.
@@ -146,13 +155,14 @@ class SptController extends Controller
      */
     public function destroy($id)
     {
-        $spt = Spt::find($id);
+        $spt = Spt::findOrFail($id);
         $spt->diperintah()->sync([]);
         $spt->delete();
 
         return redirect()->route('spt.index')
             ->with('toast_success', 'Data SPT Berhasil Dihapus');
     }
+
 
     // /**
     //  * Determine if the given option is the currently selected option.

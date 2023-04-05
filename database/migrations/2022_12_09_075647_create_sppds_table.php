@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('sppds', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('restrict');
             $table->string('nomor_surat')->nullable();
             $table->string('maksud_perintah')->required();
             $table->string('transportasi', 100)->required();

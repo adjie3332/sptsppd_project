@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pegawai;
 use App\Models\Spt;
 use App\Models\Sppd;
+use App\Models\User;
 use App\Http\Controllers\SptController;
 use App\Http\Controllers\SppdController;
 use Codedge\Fpdf\Fpdf\Fpdf;
@@ -30,6 +31,16 @@ class LaporanController extends Controller
             $tgl_awal = now()->format('2023-03-01');
             $tgl_akhir = now()->format('Y-m-d');
             $lap_spt->whereBetween('tgl_ditetapkan', [$tgl_awal, $tgl_akhir]);
+        }
+
+        // Fitur Pencarian
+        $search = $request->input('search');
+        if (!empty($search)) {
+            $lap_spt->where(function ($query) use ($search) {
+                $query->where('nomor_surat', 'like', '%' . $search . '%')
+                    ->orWhere('maksud_tugas', 'like', '%' . $search . '%')
+                    ->orWhere('tempat', 'like', '%' . $search . '%');
+            });
         }
 
         $lap_spt = $lap_spt->get();
@@ -61,6 +72,16 @@ class LaporanController extends Controller
             $tgl_awal = now()->format('2023-03-01');
             $tgl_akhir = now()->format('Y-m-d');
             $lap_sppd->whereBetween('tgl_keluar', [$tgl_awal, $tgl_akhir]);
+        }
+
+        $search = $request->input('search');
+        if (!empty($search)) {
+            $lap_sppd->where(function ($query) use ($search) {
+                $query->where('nomor_surat', 'like', '%' . $search . '%')
+                    ->orWhere('pejabat_diperintah', 'like', '%' . $search . '%')
+                    ->orWhere('maksud_perintah', 'like', '%' . $search . '%')
+                    ->orWhere('tempat_tujuan', 'like', '%' . $search . '%');
+            });
         }
 
         $lap_sppd = $lap_sppd->get();

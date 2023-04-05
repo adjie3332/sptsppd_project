@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
 use App\Models\Sppd;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SppdController extends Controller
 {
@@ -25,13 +27,6 @@ class SppdController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function report()
-    {
-        $sppd = Sppd::all();
-        return view('pages.report.sppd', compact('sppd'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
-    }
-
 
 
     /**
@@ -60,6 +55,13 @@ class SppdController extends Controller
      */
     public function store(Request $request)
     {
+        // $user_id = auth()->user()->id;
+
+        // $data = $request->all();
+        // $data['user_id'] = $user_id;
+
+        // $request->merge($data);
+
         $request->validate([
             'nomor_surat' => 'nullable',
             'maksud_perintah' => 'required',
@@ -83,6 +85,7 @@ class SppdController extends Controller
             'tempat_tujuan_3' => 'nullable',
             'tgl_tiba_3' => 'nullable',
             'tgl_berangkat_dari_3' => 'nullable',
+            'user_id' => 'required',
         ]);
 
         // dd($request->all());
@@ -109,12 +112,20 @@ class SppdController extends Controller
             'tempat_tujuan_3' => $request->tempat_tujuan_3,
             'tgl_tiba_3' => $request->tgl_tiba_3,
             'tgl_berangkat_dari_3' => $request->tgl_berangkat_dari_3,
+            'user_id' => $request->user_id,
         ]);
 
         // $sppd->pengikut()->sync($request->pengikut);
 
-        return redirect()->route('sppd.index')
-            ->with('toast_success', 'Data SPPD Berhasil Ditambahkan');
+        if ($sppd) {
+            return redirect()->route('sppd.index')
+                ->with('toast_success', 'SPPD berhasil ditambahkan');
+        } else {
+            return redirect()->route('sppd.index')
+                ->with('toast_error', 'SPPD gagal disimpan');
+        }
+        // return redirect()->route('sppd.index')
+        //     ->with('toast_success', 'Data SPPD Berhasil Ditambahkan');
     }
 
     /**

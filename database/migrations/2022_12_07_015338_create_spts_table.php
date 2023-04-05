@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('tempat_ditetapkan')->required();
             $table->date('tgl_ditetapkan')->required();
             $table->foreignId('yang_menetapkan')->references('id')->on('pegawais')->onDelete('restrict');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('restrict');
             $table->timestamps();
         });
     }

@@ -99,6 +99,7 @@
                                     <div class="form-group">
                                         <label for="keterangan">Keterangan</label>
                                         <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Tulis Keterangan">
+                                        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                                     </div>
                                 </div>
                             </div>

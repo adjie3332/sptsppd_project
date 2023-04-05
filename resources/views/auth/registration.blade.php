@@ -38,6 +38,17 @@
                                     <span class="text-danger">{{ $errors->first('password') }}</span>
                                 @endif
                             </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control form-control-lg" id="password_confirmation" name="password_confirmation" required placeholder="Konfirmasi Password">
+                                <label for="password_confirmation">Konfirmasi Password</label>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="role">Role</label>
+                                <select class="form-control" id="role" name="role">
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
                             <div class="mt-3 text-center d-grid">
                                 <button class="btn btn-block btn-primary btn-md" type="submit">Daftar</button>
                             </div>
