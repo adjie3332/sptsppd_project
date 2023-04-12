@@ -1,4 +1,4 @@
-@extends('index')
+@extends('admin.index')
 @section('title', 'Data Instansi')
 @section('content')
     @if ($message = Session::get('success'))
@@ -13,20 +13,20 @@
                 <div>
                     <h4 class="card-title">Data Instansi</h4>
                 </div>
-                <!-- <div>
+                <div>
                     @guest()
                     @else
-                        <a href="{{ route('instansi.edit', $i->id) }}" id="btn-edit-instansi" data-id="{{ $i->id }}">
+                        <a href="{{ route('instansi-admin.edit', $i->id) }}" id="btn-edit-instansi" data-id="{{ $i->id }}">
                             <button type="button" class="btn btn-success btn-md">
                             <i class="mdi mdi-update"></i>
                                 Ubah Data
                             </button>
                         </a>
                     @endguest
-                </div> -->
+                </div>
             </div>
             <div class="mt-3">
-                <form class="forms-sample" action="{{ route('instansi.store') }}" method="POST">
+                <form class="forms-sample" action="{{ route('instansi-admin.store') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="form-group">

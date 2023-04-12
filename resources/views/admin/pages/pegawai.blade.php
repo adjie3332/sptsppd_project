@@ -1,4 +1,4 @@
-@extends('index')
+@extends('admin.index')
 @section('title', 'Daftar Data Pegawai')
 @section('content')
     @if ($message = Session::get('success'))
@@ -13,7 +13,7 @@
                     <h4 class="card-title">Daftar Data Pegawai</h4>
                 </div>
                 <div>
-                    <!-- @guest()
+                    @guest()
                     @else
                         <a href="{{ route('pegawai.create') }}">
                             <button type="button" class="btn btn-success btn-md">
@@ -21,7 +21,7 @@
                                 Tambah Data
                             </button>
                         </a>
-                    @endguest -->
+                    @endguest
                 </div>
             </div>
             <div class="table-responsive mt-3">
@@ -35,10 +35,10 @@
                             <th>Pangkat</th>
                             <th>Golongan</th>
                             <th>Tingkat (Eselon)</th>
-                            <!-- @guest()
+                            @guest()
                             @else
                                 <th width=135px>Aksi</th>
-                            @endguest -->
+                            @endguest
                         </tr>
                     </thead>
                     <tbody>
@@ -53,7 +53,7 @@
                             <td>{{ $p->golongan }}</td>
                             <td>{{ $p->eselon }}</td>
                             @guest()
-                            <!-- @else
+                            @else
                                 <td class="text-center flex flex-row">
                                     <form action="{{ route('pegawai.destroy', $p->id) }}" method="POST">
                                         <a href="{{ route('pegawai.edit', $p->id) }}" id="btn-edit-pegawai" data-id="{{ $p->id }}" class="btn btn-warning btn-sm"><i class="mdi mdi-tooltip-edit"></i></a>
@@ -62,7 +62,7 @@
                                         <button type="submit" class="btn btn-danger btn-sm"><i class="mdi mdi-delete"></i></button>
                                     </form>
                                 </td>
-                            @endguest -->
+                            @endguest
                         </tr>
                         @endforeach
                         </tr>

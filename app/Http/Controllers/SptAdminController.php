@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class SptController extends Controller
+class SptAdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,13 +16,6 @@ class SptController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $spt = Spt::all();
-        return view('pages.spt', compact('spt'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
-    }
-
-    public function indexAdmin()
     {
         $spt = Spt::all();
         return view('admin.pages.spt', compact('spt'))
@@ -39,7 +32,7 @@ class SptController extends Controller
     {
         $spt = Pegawai::with(['menetapkanpt'])->get();
         // dd($spt);
-        return view('pages.spt.create', ['spt' => $spt]);
+        return view('admin.pages.spt.create', ['spt' => $spt]);
     }
 
     /**
@@ -107,7 +100,7 @@ class SptController extends Controller
     ]);
     $spt->diperintah()->sync($request->diperintah);
 
-    return redirect()->route('spt.index')
+    return redirect()->route('spt-admin.index')
         ->with('toast_success', 'Data SPT Berhasil Ditambahkan');
     }
 
@@ -134,7 +127,7 @@ class SptController extends Controller
         $pegawai = Pegawai::with('menetapkanpt')->get();
 
         // dd($pegawai);
-        return view('pages.spt.edit', ['spt' => $spt, 'pegawai' => $pegawai]);
+        return view('admin.pages.spt.edit', ['spt' => $spt, 'pegawai' => $pegawai]);
     }
 
     /**
@@ -150,7 +143,7 @@ class SptController extends Controller
         $spt->diperintah()->sync($request->diperintah);
         $spt->update($request->all());
 
-        return redirect()->route('spt.index')
+        return redirect()->route('spt-admin.index')
             ->with('toast_success', 'Data SPT Berhasil Diupdate');
     }
 
@@ -166,7 +159,7 @@ class SptController extends Controller
         $spt->diperintah()->sync([]);
         $spt->delete();
 
-        return redirect()->route('spt.index')
+        return redirect()->route('spt-admin.index')
             ->with('toast_success', 'Data SPT Berhasil Dihapus');
     }
 

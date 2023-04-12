@@ -35,7 +35,8 @@
                                 <button class="btn btn-block btn-primary btn-md" type="submit">Masuk</button>
                             </div>
                             <p class="text-center mt-4">
-                                Belum mempunyai akun? <a href="{{ route('register') }}" class="text-primary fw-bold">Buat sekarang</a>
+                                Belum mempunyai akun?<br>
+                                <a href="https://wa.me/+6281215051797" target="_blank"' class="text-primary fw-bold">Hubungi Kasubag TU</a>
                             </p>
                         </form>
                     </div>

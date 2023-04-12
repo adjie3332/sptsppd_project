@@ -39,9 +39,13 @@ class LaporanController extends Controller
             $lap_spt->where(function ($query) use ($search) {
                 $query->where('nomor_surat', 'like', '%' . $search . '%')
                     ->orWhere('maksud_tugas', 'like', '%' . $search . '%')
-                    ->orWhere('tempat', 'like', '%' . $search . '%');
-            });
+                    ->orWhere('tempat', 'like', '%' . $search . '%')
+                    ->orWhereHas('diperintahpd.pegawai', function ($query) use ($search) {
+                        $query->where('name', 'like', '%' . $search . '%');
+                        });
+                    });
         }
+
 
         $lap_spt = $lap_spt->get();
 
@@ -51,7 +55,7 @@ class LaporanController extends Controller
             return $pdfController->printLaporanSpt($tgl_awal, $tgl_akhir, $lap_spt);
         }
 
-        return view('pages.laporan.lap_spt', compact('lap_spt', 'tgl_awal', 'tgl_akhir'))
+        return view('admin.pages.laporan.lap_spt', compact('lap_spt', 'tgl_awal', 'tgl_akhir'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -92,9 +96,17 @@ class LaporanController extends Controller
             return $pdfController->printLaporanSppd($tgl_awal, $tgl_akhir, $lap_sppd);
         }
 
-        return view('pages.laporan.lap_sppd', compact('lap_sppd', 'tgl_awal', 'tgl_akhir'))
+        return view('admin.pages.laporan.lap_sppd', compact('lap_sppd', 'tgl_awal', 'tgl_akhir'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
+    // Pegawai
+    public function lap_pegawai(Request $request){
+
+        $lap_pegawai = Pegawai::latest()->paginate(10);
+
+        return view('admin.pages.laporan.lap_pegawai', compact('lap_pegawai'))
+            ->with('i', (request()->input('page', 1) - 1) * 50);
+    }
 
 }

@@ -17,7 +17,7 @@ class PegawaiController extends Controller
     {
         $pegawai = Pegawai::latest()->paginate(10);
 
-        return view('pages.pegawai', compact('pegawai'))
+        return view('admin.pages.pegawai', compact('pegawai'))
             ->with('i', (request()->input('page', 1) - 1) * 50);
     }
 
@@ -28,7 +28,7 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        return view('pages.pegawai.create');
+        return view('admin.pages.pegawai.create');
     }
 
     /**
@@ -49,7 +49,7 @@ class PegawaiController extends Controller
         ]);
         Pegawai::create($request->all());
 
-        return redirect()->route('pegawai.index')
+        return redirect()->route('admin.pegawai.index')
             ->with('toast_success', 'Data Pegawai Berhasil Ditambahkan');
     }
 
@@ -61,7 +61,7 @@ class PegawaiController extends Controller
      */
     public function show(Pegawai $pegawai)
     {
-        return view('pages.pegawai.show', compact('pegawai'));
+        return view('admin.pages.pegawai.show', compact('pegawai'));
     }
 
     /**
@@ -72,7 +72,7 @@ class PegawaiController extends Controller
      */
     public function edit(Pegawai $pegawai)
     {
-        return view('pages.pegawai.edit', compact('pegawai'));
+        return view('admin.pages.pegawai.edit', compact('pegawai'));
     }
 
     /**
@@ -124,6 +124,6 @@ class PegawaiController extends Controller
 
         $pegawai->delete();
 
-        return redirect()->route('pegawai.index')->with('toast_success', 'Data Pegawai berhasil dihapus.');
+        return redirect()->route('admin.pegawai.index')->with('toast_success', 'Data Pegawai berhasil dihapus.');
     }
 }

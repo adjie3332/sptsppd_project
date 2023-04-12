@@ -482,12 +482,12 @@ class PDF_MC_Table extends FPDF
 
     function Dikeluarkan($tanggal, $bu)
     {
-        $this->Cell(90, 5, "", 0, 0);
+        $this->Cell(105, 5, "", 0, 0);
         $this->Cell(30, 5, "Dikeluarkan di "."Boyolali", 0, 1);
         // $this->Cell(5, 5, ":", 0, 0);
         // $this->Cell(5, 5, $tempat, 0, 1);
 
-        $this->Cell(90, 5, "", 0, 0);
+        $this->Cell(105, 5, "", 0, 0);
         $this->Cell(30, 5, "Pada tanggal ".$tanggal, 0, 1);
         // $this->Cell(5, 5, ":", 0, 0);
         // $this->Cell(30, 5, $tanggal, 0, 1);
@@ -612,148 +612,148 @@ class PDF_MC_Table extends FPDF
 
     function RomawiI($dari1, $tgl1, $ke1)
     {
-        $this->Cell(83, 5, "", 0, 0);
-        $this->Cell(7, 5, "I.", 0, 0);
-        $this->Cell(30, 5, "Berangkat dari", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
+        $this->Cell(85, 5, "", 0, 0);
+        $this->Cell(4, 5, "I.", 0, 0);
+        $this->Cell(27, 5, "Berangkat dari", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
         $this->Cell(0, 6, $dari1, 0, 0);
         $this->Ln(4);
 
-        $this->Cell(90, 5, "", 0, 0);
+        $this->Cell(99, 5, "", 0, 0);
         $this->Cell(0, 6, "(tempat", 0, 1);
 
-        $this->Cell(90, 5, "", 0, 0);
-        $this->Cell(30, 5, "kedudukan)", 0, 1);
+        $this->Cell(99, 5, "", 0, 0);
+        $this->Cell(27, 5, "kedudukan)", 0, 1);
         // $this->Cell(3, 5, ":", 0, 0);
         // $this->Cell(0, 6, $dari1 , 0, 1);
 
-        $this->Cell(90, 5, "", 0, 0);
-        $this->Cell(30, 5, "Ke", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
-        $this->MultiCell(0, 6, $ke1, 0, 1);
+        $this->Cell(99, 5, "", 0, 0);
+        $this->Cell(27, 5, "Ke", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
+        $this->MUltiCell(0, 6, $ke1, 0, 1);
 
-        $this->Cell(90, 5, "", 0, 0);
-        $this->Cell(30, 5, "Pada Tanggal", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
+        $this->Cell(99, 5, "", 0, 0);
+        $this->Cell(27, 5, "Pada Tanggal", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
         $this->Cell(0, 5, $tgl1, 0, 0);
-        $this->Ln(15);
+        $this->Ln(13);
     }
 
     function RomawiII($tiba1, $tgltiba1, $dari2, $ke2, $tgldari2)
     {
-        $this->Cell(7, 5, "II.", 0, 0);
-        $this->Cell(30, 5, "Tiba di", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
-        $this->Cell(51, 5, $tiba1, 0, 0);
-        $this->Cell(30, 5, "Berangkat dari", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
+        $this->Cell(6, 5, "II.", 0, 0);
+        $this->Cell(27, 5, "Tiba di", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
+        $this->Cell(64, 5, $tiba1, 0, 0);
+        $this->Cell(27, 5, "Berangkat dari", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
         $this->Cell(0, 6, $dari2, 0, 1);
 
-        $this->Cell(7, 5, "", 0, 0);
-        $this->Cell(30, 5, "Pada Tanggal", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
-        $this->Cell(51, 5, $tgltiba1, 0, 0);
-        $this->Cell(30, 5, "Ke", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
+        $this->Cell(6, 5, "", 0, 0);
+        $this->Cell(27, 5, "Pada Tanggal", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
+        $this->Cell(64, 5, $tgltiba1, 0, 0);
+        $this->Cell(27, 5, "Ke", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
         $this->Cell(0, 6, $ke2, 0, 1);
 
-        $this->Cell(91, 5, "", 0, 0);
-        $this->Cell(30, 5, "Pada Tanggal", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
+        $this->Cell(99, 5, "", 0, 0);
+        $this->Cell(27, 5, "Pada Tanggal", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
         $this->Cell(0, 6, $tgldari2, 0, 1);
         $this->Ln(15);
 
         $this->Cell(7, 5, "", 0, 0);
-        $this->Cell(85, 5, "(............................................................)", 0, 0);
+        $this->Cell(95, 5, "(............................................................)", 0, 0);
         $this->Cell(0, 5, "(............................................................)", 0, 1);
 
         $this->Cell(7, 5, "", 0, 0);
-        $this->Cell(85, 5, "NIP.", 0, 0);
+        $this->Cell(95, 5, "NIP.", 0, 0);
         $this->Cell(0, 6, "NIP.", 0, 1);
         $this->Ln(5);
     }
 
     function RomawiIII($tiba, $tgltiba, $dari, $ke, $tgldari)
     {
-        $this->Cell(7, 5, "III.", 0, 0);
-        $this->Cell(30, 5, "Tiba di", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
-        $this->Cell(51, 5, $tiba, 0, 0);
-        $this->Cell(30, 5, "Berangkat dari", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
+        $this->Cell(6, 5, "III.", 0, 0);
+        $this->Cell(27, 5, "Tiba di", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
+        $this->Cell(64, 5, $tiba, 0, 0);
+        $this->Cell(27, 5, "Berangkat dari", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
         $this->Cell(0, 6, $dari, 0, 1);
 
-        $this->Cell(7, 5, "", 0, 0);
-        $this->Cell(30, 5, "Pada Tanggal", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
-        $this->Cell(51, 5, $tgltiba, 0, 0);
-        $this->Cell(30, 5, "Ke", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
+        $this->Cell(6, 5, "", 0, 0);
+        $this->Cell(27, 5, "Pada Tanggal", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
+        $this->Cell(64, 5, $tgltiba, 0, 0);
+        $this->Cell(27, 5, "Ke", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
         $this->Cell(0, 6, $ke, 0, 1);
 
-        $this->Cell(91, 5, "", 0, 0);
-        $this->Cell(30, 5, "Pada Tanggal", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
+        $this->Cell(99, 5, "", 0, 0);
+        $this->Cell(27, 5, "Pada Tanggal", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
         $this->Cell(0, 5, $tgldari, 0, 1);
-        $this->Ln(15);
+        $this->Ln(16);
 
         $this->Cell(7, 5, "", 0, 0);
-        $this->Cell(85, 5, "(............................................................)", 0, 0);
+        $this->Cell(95, 5, "(............................................................)", 0, 0);
         $this->Cell(0, 6, "(............................................................)", 0, 1);
 
         $this->Cell(7, 5, "", 0, 0);
-        $this->Cell(85, 5, "NIP.", 0, 0);
+        $this->Cell(95, 5, "NIP.", 0, 0);
         $this->Cell(0, 6, "NIP.", 0, 1);
         $this->Ln(5);
     }
 
     function RomawiIV($tiba, $tgltiba, $dari, $ke, $tgldari)
     {
-        $this->Cell(7, 5, "IV.", 0, 0);
-        $this->Cell(30, 5, "Tiba di", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
-        $this->Cell(51, 5, $tiba, 0, 0);
-        $this->Cell(30, 5, "Berangkat dari", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
+        $this->Cell(6, 5, "IV.", 0, 0);
+        $this->Cell(27, 5, "Tiba di", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
+        $this->Cell(64, 5, $tiba, 0, 0);
+        $this->Cell(27, 5, "Berangkat dari", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
         $this->Cell(0, 6, $dari, 0, 1);
 
-        $this->Cell(7, 5, "", 0, 0);
-        $this->Cell(30, 5, "Pada Tanggal", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
-        $this->Cell(51, 5, $tgltiba, 0, 0);
-        $this->Cell(30, 5, "Ke", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
+        $this->Cell(6, 5, "", 0, 0);
+        $this->Cell(27, 5, "Pada Tanggal", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
+        $this->Cell(64, 5, $tgltiba, 0, 0);
+        $this->Cell(27, 5, "Ke", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
         $this->Cell(0, 6, $ke, 0, 1);
 
-        $this->Cell(91, 5, "", 0, 0);
-        $this->Cell(30, 5, "Pada Tanggal", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
+        $this->Cell(99, 5, "", 0, 0);
+        $this->Cell(27, 5, "Pada Tanggal", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
         $this->Cell(0, 6, $tgldari, 0, 1);
         $this->Ln(15);
 
         $this->Cell(7, 5, "", 0, 0);
-        $this->Cell(85, 5, "(............................................................)", 0, 0);
+        $this->Cell(95, 5, "(............................................................)", 0, 0);
         $this->Cell(0, 6, "(............................................................)", 0, 1);
 
         $this->Cell(7, 5, "", 0, 0);
-        $this->Cell(85, 5, "NIP.", 0, 0);
+        $this->Cell(95, 5, "NIP.", 0, 0);
         $this->Cell(0, 6, "NIP.", 0, 1);
     }
 
     function RomawiV($tiba, $tgl)
     {
         $this->Cell(1, 5, "", 0, 0);
-        $this->Cell(7, 5, "V.", 0, 0);
-        $this->Cell(30, 5, "Tiba kembali di", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
+        $this->Cell(6, 5, "V.", 0, 0);
+        $this->Cell(27, 5, "Tiba kembali di", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
         $this->Cell(0, 6, $tiba, 0, 1);
 
-        $this->Cell(8, 5, "", 0, 0);
-        $this->Cell(30, 5, "Pada tanggal", 0, 0);
-        $this->Cell(3, 5, ":", 0, 0);
+        $this->Cell(7, 5, "", 0, 0);
+        $this->Cell(27, 5, "Pada tanggal", 0, 0);
+        $this->Cell(2, 5, ":", 0, 0);
         $this->Cell(0, 6, $tgl, 0, 1);
 
-        $this->Cell(8, 5, "", 0, 0);
+        $this->Cell(7, 5, "", 0, 0);
         $this->MultiCell(0, 6, "Telah diperiksa, dengan keterangan bahwa perjalanan tersebut diatas benar dilakukan atas perintahnya dan semata-mata untuk kepentingan jabatan dalam waktu yang sesingkat-singkatnya.", 0, 1);
         $this->Ln(5);
     }
@@ -843,7 +843,7 @@ class PDF_MC_Table extends FPDF
     {
         $ttd_kpl = Sppd::find($id);
         $Menetapkan_ttd = pegawai::find($ttd_kpl->pejabat_pemerintah);
-        $this->Cell(92, 5, "", 0, 0);
+        $this->Cell(105, 5, "", 0, 0);
         // $this->Cell(7, 5, "", 0, 0);
         $this->Cell(0, 5, "PENGGUNA ANGGARAN", 0, 1);
 
@@ -853,14 +853,14 @@ class PDF_MC_Table extends FPDF
 
 
         $this->SetFont('Times', 'BU', 12);
-        $this->Cell(90, 5, "", 0, 0);
+        $this->Cell(103, 5, "", 0, 0);
         $this->Cell(0, 5, $Menetapkan_ttd->name, 0, 1);
 
-        $this->Cell(95, 5, "", 0, 0);
+        $this->Cell(110, 5, "", 0, 0);
         $this->SetFont('Times', '', 12);
         $this->Cell(0, 5, $Menetapkan_ttd->pangkat, 0, 1);
 
-        $this->Cell(90, 5, "", 0, 0);
+        $this->Cell(105, 5, "", 0, 0);
         $this->Cell(0, 5, "NIP. ".$Menetapkan_ttd->nip, 0, 1);
     }
 
@@ -1126,7 +1126,7 @@ class PdfController extends Controller
         $this->fpdf->Kop();
 
         // Lembar ke
-        $this->fpdf->Lembar('I / II / III/ IV', '06.09', $dataSppd->nomor_surat);
+        $this->fpdf->Lembar('I / II / III/ IV', '', $dataSppd->nomor_surat);
 
         // Surat Perintah Perjalanan Dinas
         $this->fpdf->SetFont('Times', 'BU', 14);
@@ -1152,54 +1152,57 @@ class PdfController extends Controller
 
         // Halaman Tanda Tangan
         $this->fpdf->AddPage('P', array(210, 330));
+        $this->fpdf->SetFontSize(12);
+        $this->fpdf->SetMargins(10, 10, 10);
 
         // Garis I
         $this->fpdf->SetLineWidth(0);
-        $this->fpdf->Line(20, 5, 190, 5);
-        $this->fpdf->Line(20, 310, 20, 5);
-        $this->fpdf->Line(103, 190, 103, 5);
-        $this->fpdf->Line(190, 310, 190, 5);
+        $this->fpdf->Line(10, 5, 200, 5);
+        $this->fpdf->Line(10, 310, 10, 5);
+        $this->fpdf->Line(105, 190, 105, 5);
+        $this->fpdf->Line(200, 310, 200, 5);
 
         // Romawi I
-        $this->fpdf->RomawiI( $dataSppd->tempat_berangkat , $dataSppd->tempat_tujuan_1 , dateIndo($dataSppd->tgl_pergi));
+        $this->fpdf->RomawiI( $dataSppd->tempat_berangkat , dateIndo($dataSppd->tgl_pergi) , $dataSppd->tempat_tujuan_1);
 
         // Garis II
         $this->fpdf->SetLineWidth(0);
-        $this->fpdf->Line(20, 40, 190, 40);
+        $this->fpdf->Line(10, 40, 200, 40);
 
         // Romawi II
         $this->fpdf->RomawiII( $dataSppd->tempat_tujuan_1 , dateIndo($dataSppd->tgl_tiba_1), $dataSppd->tempat_tujuan_1, checkParameters($dataSppd->tgl_berangkat_dari_1, $dataSppd->tempat_tujuan_2), dateIndo($dataSppd->tgl_berangkat_dari_1));
 
         // Garis III
         $this->fpdf->SetLineWidth(0);
-        $this->fpdf->Line(20, 89, 190, 89);
+        $this->fpdf->Line(10, 89, 200, 89);
 
         // Romawi III
         $this->fpdf->RomawiIII( $dataSppd->tempat_tujuan_2, dateIndo($dataSppd->tgl_tiba_2), $dataSppd->tempat_tujuan_2, checkParameters($dataSppd->tgl_berangkat_dari_2, $dataSppd->tempat_tujuan_3), dateIndo($dataSppd->tgl_berangkat_dari_2));
 
         // Garis IV
         $this->fpdf->SetLineWidth(0);
-        $this->fpdf->Line(20, 140, 190, 140);
+        $this->fpdf->Line(10, 140, 200, 140);
 
         // Romawi IV
         $this->fpdf->RomawiIV($dataSppd->tempat_tujuan_3, dateIndo($dataSppd->tgl_tiba_3), $dataSppd->tempat_tujuan_3, checkParameters('sji', ''), dateIndo($dataSppd->tgl_berangkat_dari_3));
 
         // Garis V
         $this->fpdf->SetLineWidth(0);
-        $this->fpdf->Line(20, 190, 190, 190);
+        $this->fpdf->Line(10, 190, 200, 190);
         $this->fpdf->Ln(5);
 
         // Romawi V
         $this->fpdf->RomawiV( $dataSppd->tempat_berangkat, dateIndo($dataSppd->tgl_kembali));
 
         // Tanda Tangan
-        $this->fpdf->TTD_SPPD($id);
         $this->fpdf->Ln(10);
+        $this->fpdf->TTD_SPPD($id);
+        $this->fpdf->Ln(8);
 
 
         // Garis VI
         $this->fpdf->SetLineWidth(0);
-        $this->fpdf->Line(20, 270, 190, 270);
+        $this->fpdf->Line(10, 270, 200, 270);
 
         // Romawi VI
         $this->fpdf->Cell(7, 5, "VI.", 0, 0);
@@ -1208,11 +1211,11 @@ class PdfController extends Controller
 
         // Garis VII
         $this->fpdf->SetLineWidth(0);
-        $this->fpdf->Line(20, 280, 190, 280);
+        $this->fpdf->Line(10, 280, 200, 280);
 
         // Garis VIII
         $this->fpdf->SetLineWidth(0);
-        $this->fpdf->Line(20, 310, 190, 310);
+        $this->fpdf->Line(10, 310, 200, 310);
 
         // Romawi VII
         $this->fpdf->Cell(7, 5, "VII.", 0, 0);

@@ -10,8 +10,11 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\LaporanController;
-
+use App\Http\Controllers\SptAdminController;
+use App\Http\Controllers\SppdAdminController;
+use App\Http\Middleware\CheckRole;
 use App\Http\Controllers\PdfController;
+Use App\Http\Controllers\InstansiAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +50,7 @@ Route::get('contact-us', [ContactController::class, 'index']);
 Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
 
 // crud
-Route::resource('pegawai', PegawaiController::class)->middleware('auth');
+// Route::resource('pegawai', PegawaiController::class)->middleware('auth');
 Route::resource('sppd', SppdController::class)->middleware('auth');
 Route::resource('spt', SptController::class)->middleware('auth');
 Route::resource('biaya', BiayaController::class)->middleware('auth');
@@ -60,6 +63,17 @@ Route::get('/laporan/Sppd', [LaporanController::class, 'lap_sppd'])->name('lapor
 
 // dashboard
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    // routes yang memerlukan role admin
+    Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+    Route::resource('pegawai', PegawaiController::class);
+    Route::get('/dashboard', [DashboardController::class, 'indexAdmin']);
+    Route::resource('spt-admin', SptAdminController::class);
+    Route::resource('sppd-admin', SppdAdminController::class);
+    Route::resource('instansi-admin', InstansiAdminController::class);
+});
+
 
 
 

@@ -1,4 +1,4 @@
-@extends('index')
+@extends('admin.index')
 @section('title', 'Dashboard')
 @section('content')
     <div class="row flex-grow">
@@ -73,7 +73,6 @@
                 </div>
             </div>
         </div> -->
-        @can('isAdmin')
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card bg-warning card-rounded">
                 <div class="card-body pb-3">
@@ -95,6 +94,5 @@
                 </div>
             </div>
         </div>
-        @endcan
     </div>
 @endsection

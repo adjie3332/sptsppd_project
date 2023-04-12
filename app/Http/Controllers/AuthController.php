@@ -50,17 +50,16 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('/')
-                ->withSuccess('You have Successfully loggedin');
+            if (Auth::user()->isAdmin()) {
+                return redirect()->intended('/dashboard')->withSuccess('You have Successfully loggedin as admin');
+            }
+            return redirect()->intended('/')->withSuccess('You have Successfully loggedin');
         }
-
-        // // Peringatan dengan menggunakan variabel session
-        // session()->flash('error', 'Invalid credentials');
-        // return redirect()->back();
 
         // Peringatan dengan menggunakan method withError()
         return redirect()->back()->withErrors(['email' => 'Invalid email or password']);
     }
+
 
     /**
      * Write code on Method
@@ -89,11 +88,15 @@ class AuthController extends Controller
     public function dashboard()
     {
         if (Auth::check()) {
-            return view('pages.dashboard');
+            if (Auth::user()->isAdmin()) {
+                return view('admin.dashboard');
+            } else {
+                return view('pages.dashboard');
+            }
         }
-
         return redirect("login")->withSuccess('Opps! You do not have access');
     }
+
 
     /**
      * Write code on Method
@@ -105,7 +108,8 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password'])
+            'password' => Hash::make($data['password']),
+            'role' => $data['role'],
         ]);
 
         event(new Registered($user)); // tambahkan kode ini untuk mengirimkan email verifikasi

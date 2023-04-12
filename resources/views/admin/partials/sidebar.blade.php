@@ -1,31 +1,31 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link" href="/">
+            <a class="nav-link" href="/dashboard">
                 <i class="mdi mdi-view-dashboard menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
         <li class="nav-item nav-category">Master Data</li>
-        <!-- <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('pegawai.index') }}">
                 <i class="mdi mdi-human-male-female menu-icon"></i>
                 <span class="menu-title">Data Pegawai</span>
             </a>
-        </li> -->
+        </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('spt.index') }}">
+            <a class="nav-link" href="{{ route('spt-admin.index') }}">
                 <i class="mdi mdi-file-multiple menu-icon"></i>
                 <span class="menu-title">Data SPT</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('sppd.index') }}">
+            <a class="nav-link" href="{{ route('sppd-admin.index') }}">
                 <i class="mdi mdi-file-multiple menu-icon"></i>
                 <span class="menu-title">Data SPPD</span>
             </a>
         </li>
-        <!-- <li class="nav-item nav-category">Laporan Data</li>
+        <li class="nav-item nav-category">Laporan Data</li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('laporan.lap_spt') }}">
                 <i class="mdi mdi-folder-multiple menu-icon"></i>
@@ -37,10 +37,15 @@
                 <i class="mdi mdi-folder-multiple menu-icon"></i>
                 <span class="menu-title">SPPD</span>
             </a>
-        </li> -->
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('laporan.lap_pegawai') }}">
+                <i class="mdi mdi-folder-multiple menu-icon"></i>
+                <span class="menu-title">Pegawai</span>
+            </a>
         <li class="nav-item nav-category">Master Setting</li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('instansi.index') }}">
+            <a class="nav-link" href="{{ route('instansi-admin.index') }}">
                 <i class="mdi mdi-settings menu-icon"></i>
                 <span class="menu-title">Data Instansi</span>
             </a>

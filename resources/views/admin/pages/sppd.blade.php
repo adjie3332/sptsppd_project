@@ -1,4 +1,4 @@
-@extends('index')
+@extends('admin.index')
 @section('title', 'Daftar Data SPPD')
 @section('content')
     <div class="card">
@@ -11,7 +11,7 @@
                 @guest()
                 @else
                     <div>
-                        <a href="{{ route('sppd.create') }}">
+                        <a href="{{ route('sppd-admin.create') }}">
                             <button type="button" class="btn btn-success btn-md">
                                 <i class="mdi mdi-plus-box"></i>
                                 Tambah Data
@@ -71,12 +71,12 @@
                                 @guest()
                                 @else
                                     <td class="text-center flex flex-row">
-                                        <form action="{{ route('sppd.destroy', $s->id) }}" method="POST">
-                                            <!-- <a href="/pdf2/{{ $s->id }}" id="btn-show-sppd" data-id="{{ $s->id }}" class="btn btn-primary btn-sm"><i class="mdi mdi-printer"></i></a> -->
-                                            <a href="{{ route('sppd.edit', $s->id) }}" id="btn-edit-sppd" data-id="{{ $s->id }}" class="btn btn-warning btn-sm"><i class="mdi mdi-tooltip-edit"></i></a>
-                                            <!-- @csrf
+                                        <form action="{{ route('sppd-admin.destroy', $s->id) }}" method="POST">
+                                            <a href="/pdf2/{{ $s->id }}" id="btn-show-sppd" data-id="{{ $s->id }}" class="btn btn-primary btn-sm"><i class="mdi mdi-printer"></i></a>
+                                            <a href="{{ route('sppd-admin.edit', $s->id) }}" id="btn-edit-sppd" data-id="{{ $s->id }}" class="btn btn-warning btn-sm"><i class="mdi mdi-tooltip-edit"></i></a>
+                                            @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger  btn-sm"><i class="mdi mdi-delete"></i></button> -->
+                                            <button type="submit" class="btn btn-danger  btn-sm"><i class="mdi mdi-delete"></i></button>
                                         </form>
                                     </td>
                                 @endguest
